@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="~{base}">
+<div layout:fragment="page_content" id="search_content">
+<span th:if="${user != null}" th:text="Successfully addded user: ${user.name}">
+</span>
+<table>
+    <thead>
+    <tr>
+        <th>Serial</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user,iterationStatus : ${users}">
+        <td th:text="${iterationStatus.count}">1</td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.phone}"></td>
+        <td th:text="${user.role}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</HTML>

@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<div th:fragment="footer">
+
+    <div class="container">
+        <footer>
+            © 2020 MatthewGeorgiev
+            <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> |
+                <a href="javascript: document.footerLogout.submit()" role="menuitem">Sign Out</a>
+                <form name="footerLogout" th:action="@{/logout}" method="POST" th:hidden="true">
+                     <input th:hidden="true" type="submit" value="Logout"/>
+                </form>
+            </span>
+        </footer>
+    </div>
+</div>
+
+</body>
+
+</html>

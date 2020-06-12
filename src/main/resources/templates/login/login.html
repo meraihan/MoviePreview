@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        form {
+            width: 500px;
+            height: 430px;
+            padding: 50px;
+            border: 3px solid #f1f1f1;
+            margin:auto;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+
+        img.avatar {
+            width: 30%;
+            border-radius: 20%
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">Welcome to the Movie Library</h2>
+
+<form th:action="@{/login}" method="post">
+    <div class="imgcontainer">
+        <img th:src="@{/css/img/avatar5.png}" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" id="uname" name="username" required/>
+        </br>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="psw" name="password" required/>
+
+        <button type="submit">Login</button>
+        <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember Me
+        </label>&nbsp;&nbsp;
+        Not Registered?
+        <a th:href="@{/user/register}" style="text-align: right">
+            <span th:if="${not #authorization.expression('isAuthenticated()')}">Sign Up Now</span>
+        </a></br>
+    </div>
+
+<!--    <div class="container" style="background-color:#f1f1f1">-->
+<!--&lt;!&ndash;        <button type="button" class="cancelbtn">Cancel</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <span class="psw">Forgot <a href="#">password?</a></span>&ndash;&gt;-->
+<!--        <a th:href="@{/user/register}">-->
+<!--            <span th:if="${not #authorization.expression('isAuthenticated()')}">Not Registered? Sign Up Now</span>-->
+<!--        </a></br>-->
+<!--    </div>-->
+</form>
+
+</body>
+</html>

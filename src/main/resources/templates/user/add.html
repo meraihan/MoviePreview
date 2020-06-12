@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="~{base}">
+<div layout:fragment="page_content" id="search_content">
+    <h1 style="text-align: center;">User Registration</h1>
+<form th:action="@{/user/register}" th:method="POST" th:object="${user}" >
+    <div class="container">
+
+        <label for="username"><b>Username</b></label>
+        <input type="text" id="username" placeholder="username" th:field="*{username}" required/>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="password" th:field="*{password}" required/>
+
+        <label for="phone"><b>Phone</b></label>
+        <input type="text" placeholder="Enter Phone" id="phone" th:field="*{phone}" required/>
+
+        <div sec:authorize-expr="hasAuthority('ADMIN')">
+            <label for="role">Roles</label>
+            <select name="role" id="role" th:field="*{role}" required>
+                <option th:each="role, iteration: ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </div>
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="name" th:field="*{name}" required/> <br></br>
+
+
+        <button type="submit" class="registerbtn">Register</button>
+    </div>
+
+    <div class="container signin">
+        <p>Already have an account? <a th:href="@{/login}">Sign in</a>.</p>
+    </div>
+
+</form>
+</div>
+</HTML>
