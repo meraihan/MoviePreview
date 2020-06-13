@@ -5,11 +5,37 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{base}">
 <div layout:fragment="page_content" id="search_content">
-Welcome <span sec:authentication="name">USER</span>, Dashboard.
-<ul>
-    <li><a href="user/find">Find User</a></li>
-    <li><a href="user/list">list</a></li>
-    <li><a href="user/register">Register</a></li>
-</ul>
+    <link rel="stylesheet" th:href="@{/css/main/function.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="mov-container mov-content mov-center mov-padding-64" style="max-width:800px" id="band">
+        <h2 class="mov-wide">THE BAND</h2>
+        <p class="mov-opacity"><i>We love music</i></p>
+        <p class="mov-justify">We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
+            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="mov-row mov-padding-32">
+            <div class="mov-third">
+                <a href="user/find">
+                    <p>Find User</p>
+                    <img src="/css/img/find.jpg" class="mov-round mov-margin-bottom" alt="Random Name" style="width:60%">
+                </a>
+            </div>
+            <div class="mov-third">
+                <a href="user/list">
+                    <p>User List</p>
+                    <img src="/css/img/user.jpg" class="mov-round mov-margin-bottom" alt="Random Name" style="width:60%">
+                </a>
+            </div>
+            <div class="mov-third">
+                <a href="user/register">
+                    <p>Register</p>
+                    <img src="/movimages/bandmember.jpg" class="mov-round" alt="Random Name" style="width:60%">
+                </a>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" th:href="@{/css/main/function.css}"/>
 </div>
 </HTML>

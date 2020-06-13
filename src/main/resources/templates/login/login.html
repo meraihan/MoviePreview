@@ -4,7 +4,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: rgba(0,0,0,0.8);
+        }
         form {
             width: 500px;
             height: 430px;
@@ -66,7 +69,7 @@
 </head>
 <body>
 
-<h2 style="text-align: center;">Welcome to the Movie Library</h2>
+<h2 style="text-align: center; color: #cccccc;">Welcome to the Most Aamazing Movie Library</h2>
 
 <form th:action="@{/login}" method="post">
     <div class="imgcontainer">
@@ -74,29 +77,18 @@
     </div>
 
     <div class="container">
-        <label for="uname"><b>Username</b></label>
+        <label for="uname" style="color: #cccccc"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" id="uname" name="username" required/>
         </br>
-        <label for="psw"><b>Password</b></label>
+        <label for="psw" style="color: #cccccc"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" id="psw" name="password" required/>
 
         <button type="submit">Login</button>
-        <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember Me
-        </label>&nbsp;&nbsp;
-        Not Registered?
-        <a th:href="@{/user/register}" style="text-align: right">
+        <span style="color: #cccccc">Not Registered?</span>
+        <a th:href="@{/user/register}" style="text-align: right; color: #4CAF50"; >
             <span th:if="${not #authorization.expression('isAuthenticated()')}">Sign Up Now</span>
         </a></br>
     </div>
-
-<!--    <div class="container" style="background-color:#f1f1f1">-->
-<!--&lt;!&ndash;        <button type="button" class="cancelbtn">Cancel</button>&ndash;&gt;-->
-<!--&lt;!&ndash;        <span class="psw">Forgot <a href="#">password?</a></span>&ndash;&gt;-->
-<!--        <a th:href="@{/user/register}">-->
-<!--            <span th:if="${not #authorization.expression('isAuthenticated()')}">Not Registered? Sign Up Now</span>-->
-<!--        </a></br>-->
-<!--    </div>-->
 </form>
 
 </body>
