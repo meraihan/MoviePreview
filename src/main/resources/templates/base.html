@@ -16,26 +16,21 @@
 
 </form>
 <nav>
-    <div class="mov-top" th:if="${#authorization.expression('isAuthenticated()')}" >
-        <link rel="stylesheet" th:href="@{/css/main/function.css}"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <div class="mov-bar mov-black mov-card" style="display: block;">
-            <a class="mov-bar-item mov-button mov-padding-large mov-hide-medium mov-hide-large mov-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-            <a href="/dashboard" class="mov-bar-item mov-button mov-padding-large">DASHBOARD</a>
-            <a href="/user/list" class="mov-bar-item mov-button mov-padding-large mov-hide-small">USERS</a>
-            <a href="/movie/search" class="mov-bar-item mov-button mov-padding-large mov-hide-small">SEARCH MOVIES</a>
-            <div class="mov-dropdown-hover mov-hide-small">
-                <button class="mov-padding-large mov-button" title="More">MORE <i class="fa fa-caret-down"></i></button>
-                <div class="mov-dropdown-content mov-bar-block mov-card-4">
-                    <a href="#" class="mov-bar-item mov-button">My Account</a>
-                    <a href="#" class="mov-bar-item mov-button">Setting</a>
-                    <a href="#" id="logout" class="mov-bar-item mov-button">Logout</a>
-                </div>
+    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
+        <li><a class="active" href="/dashboard">DASHBOARD</a></li>
+        <li><a href="/user/list">USERS</a></li>
+        <li><a href="/movie/search">SEARCH MOVIES</a></li>
+        <li class="right"><a href="#">ABOUT</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">MORE</a>
+            <div class="dropdown-content">
+                <a href="#">My Account</a>
+                <a href="#">Settings</a>
+                <a href="#" id="logout">Logout</a>
             </div>
-        </div>
-    </div>
-    <!--        </ul>-->
+        </li>
+    </ul>
+
 </nav>
 <div class="mov-content"  style="margin-top:50px;">
     <div layout:fragment="page_content"></div>
