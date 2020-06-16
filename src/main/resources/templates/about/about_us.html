@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/form/style.css}"/>
+</head>
+<body>
+<nav>
+    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
+        <li><a class="active" href="/dashboard">DASHBOARD</a></li>
+        <li><a href="/user/list">USERS</a></li>
+        <li><a href="/movie/search">SEARCH MOVIES</a></li>
+        <li class="right"><a href="/about-us">ABOUT</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">MORE</a>
+            <div class="dropdown-content">
+                <a href="#">My Account</a>
+                <a href="#">Settings</a>
+                <a href="#" id="logout">Logout</a>
+            </div>
+        </li>
+    </ul>
+
+</nav>
+<div class="about-section">
+    <h1 style="color: #cccccc">About Us</h1><br>
+    <h3 style="color: #cccccc">Matthew Georgiev & Andrew Stoyanov</h3><br>
+    <img src="/css/img/univ.png">
+</div>
+
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="/css/img/Metthew.jpg" alt="Jane" style="width:100%">
+            <div class="container" style="color: #cccccc">
+                <h3 style="color: #cccccc; font-size: 25px">Matthew Georgiev </h3>
+                <p class="title">Student Number 474371</p>
+                <p align="justify" style="font-size: 15px">ICT student in Saxion University of Applied Sciences. We are highly motivated students, ready to explore the depths of the computer sciences.
+                    Front-end developer of this web application, helping Andrew with the back-end. Design creator.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <img src="/css/img/Andrew.jpg" alt="Mike" style="width:100%">
+            <div class="container" style="color: #cccccc">
+                <h3 style="color: #cccccc;font-size: 25px">Andrew Stoyanov</h3>
+                <p class="title">Student Number 287228</p>
+                <p align="justify" style="font-size: 15px">I am a student in Saxion University of Applied Sciences.
+                    Back-end developer, helping Matthew with the front-end.
+                    Working together we tried to see if the back-end works with the front-end at all the time. Step by step getting closer to a finished product. We are fully confident that we succeeded in making a good Web application.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+<style>
+    body {
+        background:#333 url(/css/img/bg.jpg) repeat top left;
+    }
+    .column {
+        float: left;
+        width: 45%;
+        margin-top: -300px;
+        padding: 0 8px;
+    }
+
+    .card {
+        box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
+        margin: 140px;
+        margin-left: 350px;
+    }
+    element.style {
+        width: 100%;
+    }
+    .about-section {
+        padding: 50px;
+        text-align: center;
+        /*background-color: #474e5d;*/
+        color: white;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .container::after, .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .title {
+        color: grey;
+    }
+
+    @media screen and (max-width: 650px) {
+        .column {
+            width: 100%;
+            display: block;
+        }
+    }
+</style>
+</html>

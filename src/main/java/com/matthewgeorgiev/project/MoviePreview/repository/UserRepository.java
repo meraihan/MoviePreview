@@ -56,13 +56,12 @@ public class UserRepository {
                 .usingGeneratedKeyColumns("id");
 
         Map<String, Object> parameters = new HashMap<String, Object>();
-
         parameters.put("name", user.getName());
         parameters.put("phone", user.getPhone());
         parameters.put("password", user.getPassword());
         parameters.put("role", user.getRole());
         parameters.put("username", user.getUsername());
-
+        parameters.put("img_loc", user.getImgLocation());
         Number id = simpleJdbcInsert.executeAndReturnKey(parameters);
         if (id == null) {
             log.error("Failed to insert {}", user);

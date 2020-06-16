@@ -20,4 +20,9 @@ public class HomeController {
     public String dashboard() {
         return "dashboard/dashboard";
     }
+
+    @GetMapping("/about-us")
+    public String about() {
+        return "about/about_us";
+    }
 }

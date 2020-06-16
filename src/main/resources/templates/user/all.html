@@ -2,31 +2,66 @@
 <HTML xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{base}">
 <div layout:fragment="page_content" id="search_content">
-<span th:if="${user != null}" th:text="Successfully addded user: ${user.name}">
-</span>
-<table>
-    <thead>
-    <tr>
-        <th>Serial</th>
-        <th>Username</th>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Role</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user,iterationStatus : ${users}">
-        <td th:text="${iterationStatus.count}">1</td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.phone}"></td>
-        <td th:text="${user.role}"></td>
-    </tr>
-    </tbody>
-</table>
-    <link rel="stylesheet" th:href="@{/css/main/function.css}"/>
+    <link rel="stylesheet" href="/css/form/style.css">
+    <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+        <ul class="cd-faq__categories">
+            <!--            <li><a class="cd-faq__category cd-faq__category-selected truncate" href="#basics">Basics</a></li>-->
+            <li><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
+            <li><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
+            <li><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
+            <li><a class="cd-faq__category truncate" href="#">About</a></li>
+            <li><a class="cd-faq__category truncate" id="logout" href="#delivery">Logout</a></li>
+        </ul> <!-- cd-faq__categories -->
+
+        <div class="cd-faq__items">
+
+            <ul id="delivery" class="cd-faq__group">
+                <li class="cd-faq__title"><h2>USER LIST</h2></li>
+                <span th:if="${user != null}" th:text="Successfully addded user ${user.name}"></span>
+                <table>
+                    <tr>
+                        <th>Serial</th>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                    </tr>
+                    <tr th:each="user,iterationStatus : ${users}" style="background: #cccccc">
+                        <td th:text="${iterationStatus.count}">1</td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.phone}"></td>
+                        <td th:text="${user.role}"></td>
+                    </tr>
+                </table>
+
+            </ul> <!-- cd-faq__group -->
+        </div> <!-- cd-faq__items -->
+
+        <a href="#0" class="cd-faq__close-panel text-replace">Close</a>
+
+        <div class="cd-faq__overlay" aria-hidden="true"></div>
+    </section>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </div>
 </HTML>

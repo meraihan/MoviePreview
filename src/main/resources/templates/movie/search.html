@@ -2,33 +2,92 @@
 <HTML xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{base}">
 <div layout:fragment="page_content" id="search_content">
-<form th:action="@{/movie/search}" th:method="POST" modelAttribute="title">
-    <label>Search By Title</label>
-    <input type="text" name="title" placeholder="Search"/>
-    <input type="submit" value="SEARCH"/>
-</form>
+    <link rel="stylesheet" href="/css/form/style.css">
+    <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+        <ul class="cd-faq__categories">
+            <!--            <li><a class="cd-faq__category cd-faq__category-selected truncate" href="#basics">Basics</a></li>-->
+            <li><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
+            <li><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
+            <li><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
+            <li><a class="cd-faq__category truncate" href="#">About</a></li>
+            <li><a class="cd-faq__category truncate" id="logout" href="#delivery">Logout</a></li>
+        </ul> <!-- cd-faq__categories -->
 
-<table th:if="${not #lists.isEmpty(movies) }">
-    <thead>
-    <tr>
-        <th>Serial</th>
-        <th>Title</th>
-        <th>Year</th>
-        <th>Rating</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr  th:each="movie,iterationStatus : ${movies}">
-        <td th:text="${iterationStatus.count}">1</td>
-        <td><a th:href="@{'/movie/rate/' + ${movie.imdbID}}" th:text="${movie.Title}"></a></td>
-        <td th:text="${movie.Year}"></td>
-        <td th:text="${movie.imdbRating}"></td>
-    </tr>
-    </tbody>
-</table>
-    <link rel="stylesheet" th:href="@{/css/main/function.css}"/>
+        <div class="cd-faq__items">
+
+            <ul id="delivery" class="cd-faq__group">
+                <li class="cd-faq__title"><h2>Search By Movie Title</h2></li>
+                <form th:action="@{/movie/search}" th:method="POST" modelAttribute="title">
+<!--                    <label for="cls" style="color: #cccccc">Search By Title</label>-->
+                    <input type="text" name="title" id="cls" placeholder="Search By Movie Title"/>
+                    <input type="submit" id="btn" value="SEARCH"/>
+                </form>
+                <br><br><br>
+                <table th:if="${not #lists.isEmpty(movies) }">
+                    <thead>
+                    <tr>
+                        <th>Serial</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  th:each="movie,iterationStatus : ${movies}" style="background: #cccccc">
+                        <td th:text="${iterationStatus.count}">1</td>
+                        <td><a th:href="@{'/movie/rate/' + ${movie.imdbID}}" th:text="${movie.Title}"></a></td>
+                        <td th:text="${movie.Year}"></td>
+                        <td th:text="${movie.imdbRating}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </ul> <!-- cd-faq__group -->
+        </div> <!-- cd-faq__items -->
+
+        <a href="#0" class="cd-faq__close-panel text-replace">Close</a>
+
+        <div class="cd-faq__overlay" aria-hidden="true"></div>
+    </section>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #cls{
+            padding: 10px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            width: 80%;
+            background: #f1f1f1;
+        }
+        #btn{
+            float: left;
+            width: 20%;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+        }
+    </style>
 </div>
 </HTML>

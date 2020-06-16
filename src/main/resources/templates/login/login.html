@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: rgba(0,0,0,0.8);
+            background:#333 url(css/img/bg.jpg) repeat top left;font-family:Arial;
         }
         form {
             width: 500px;
@@ -69,19 +68,19 @@
 </head>
 <body>
 
-<h2 style="text-align: center; color: #cccccc;">Welcome to the Most Aamazing Movie Library</h2>
+<h2 style="text-align: center; color: #cccccc;">Welcome to the Most Amazing Movie Library</h2>
 
 <form th:action="@{/login}" method="post">
     <div class="imgcontainer">
-        <img th:src="@{/css/img/avatar5.png}" alt="Avatar" class="avatar">
+        <img th:src="@{/css/img/M_A movies_full_edited.png}" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
         <label for="uname" style="color: #cccccc"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" id="uname" name="username" required/>
+        <input type="text" placeholder="Enter Username" id="uname" value="admin" name="username" required/>
         </br>
         <label for="psw" style="color: #cccccc"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" id="psw" name="password" required/>
+        <input type="password" placeholder="Enter Password" id="psw" value="aaaaa@" name="password" required/>
 
         <button type="submit">Login</button>
         <span style="color: #cccccc">Not Registered?</span>

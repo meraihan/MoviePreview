@@ -6,7 +6,7 @@
       layout:decorate="~{base}">
 <div layout:fragment="page_content" id="search_content">
     <h1 style="text-align: center;color: #cccccc";>User Registration</h1>
-<form th:action="@{/user/register}" th:method="POST" th:object="${user}" >
+<form th:action="@{/user/register}" th:method="POST" th:object="${user}" enctype="multipart/form-data">
     <div class="container">
 
         <label for="username" style="color: #cccccc"><b>Username</b></label>
@@ -27,7 +27,9 @@
         <label for="name" style="color: #cccccc"><b>Name</b></label>
         <input type="text" id="name" placeholder="name" th:field="*{name}" required/> <br></br>
 
-
+        <label for="img" style="color: #cccccc"><b>Select image:</b></label> &nbsp;&nbsp;&nbsp;
+        <input type="file" id="img" name="image" accept="image/*">
+        <br></br>
         <button type="submit" class="registerbtn">Register</button>
     </div>
 
@@ -37,10 +39,10 @@
 
 </form>
     <style>
-        body {font-family: Arial, Helvetica, sans-serif;  background: rgba(0,0,0,0.8);}
+        /*body {font-family: Arial, Helvetica, sans-serif;  background: rgba(0,0,0,0.8);}*/
         form {
             width: 500px;
-            height: 430px;
+            height: 500px;
             padding: 50px;
             border: 3px solid #f1f1f1;
             margin:auto;
@@ -53,6 +55,10 @@
             display: inline-block;
             border: 1px solid #ccc;
             box-sizing: border-box;
+        }
+
+        input[type="file"]{
+            color: #cccccc
         }
 
         #role{

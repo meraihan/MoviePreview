@@ -7,11 +7,10 @@
     <meta name="description" content=""/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Movie Review</title>
-    <link rel="stylesheet" th:href="@{/css/navbar/nav.css}"/>
     <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
 
 </head>
-<body>
+<body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
 <form id="logoutForm" hidden="hidden" method="post" th:action="@{/logout}">
 
 </form>
@@ -20,24 +19,24 @@
         <li><a class="active" href="/dashboard">DASHBOARD</a></li>
         <li><a href="/user/list">USERS</a></li>
         <li><a href="/movie/search">SEARCH MOVIES</a></li>
-        <li class="right"><a href="#">ABOUT</a></li>
+        <li class="right"><a href="/about-us">ABOUT</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MORE</a>
             <div class="dropdown-content">
                 <a href="#">My Account</a>
-                <a href="#">Settings</a>
+                <a href="/about-us">About</a>
                 <a href="#" id="logout">Logout</a>
             </div>
         </li>
     </ul>
 
 </nav>
-<div class="mov-content"  style="margin-top:50px;">
+
+<div class="content">
     <div layout:fragment="page_content"></div>
 </div>
 
-
-<footer class="mov-container mov-padding-16 mov-center mov-opacity mov-light-grey mov-small">
+<footer style="text-align: center;color: #cccccc">
     © 2020 Matthew Georgiev and Andrew Stoyanov
     <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
@@ -61,6 +60,7 @@
             form.submit();
         }, false);
     };
+
 </script>
 </body>
 </html>
