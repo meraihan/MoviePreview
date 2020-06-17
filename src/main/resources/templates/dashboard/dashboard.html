@@ -50,7 +50,7 @@
                 <li class="">
                     <div class="cd-faq__content">
                         <div class="text-component">
-                            <p>
+                            <p align="justify" style="font-family: Arial; font-size: 20px">
                                 Welcome to this web application, here you can browse movies and  rate them.
                                 The web application is connected with a database with a lot of movies in it, we(the admins) hope that you will be able to find your favourite movie without a problem.
                                 Soo, don’t hesitate to click on the “Search movie” to start rating your favourite movie(s).
@@ -59,54 +59,65 @@
                         </div>
                     </div>
                 </li>
-                <li class="slide" tabindex="1" id="l1">
-                    <a href="#">
-                        <span class="slide-outer">
-                          <span class="slide-inner">
-                            <span class="slide-gfx" id="s1">
-                              <img src="/css/img/LionKing.jpg" />
-                            </span>
-                          </span>
-                        </span>
-                    </a>
-                </li>
+                <div class="container">
+                    <div class="mySlides">
+                        <div class="numbertext">1 / 6</div>
+                        <img src="/css/img/avengers_endgame.jpg" style="width:100%">
+                    </div>
 
-                <li class="slide" tabindex="1" id="l2">
-                        <span class="slide-outer">
-                          <span class="slide-inner">
-                            <span class="slide-gfx" id="s2">
-                              <img src="/css/img/avengers_endgame.jpg"  />
-                            </span>
-                          </span>
-                        </span>
-                </li>
-                <li class="slide" tabindex="1" id="l3">
-                        <span class="slide-outer">
-                          <span class="slide-inner">
-                            <span class="slide-gfx" id="s3">
-                              <img src="/css/img/Fast&furious.jpg" />
-                            </span>
-                          </span>
-                        </span>
-                </li>
-                <li class="slide" tabindex="1" id="l4">
-                        <span class="slide-outer">
-                          <span class="slide-inner">
-                            <span class="slide-gfx" id="s4">
-                              <img src="/css/img/GameOfThrones.jpg" />
-                            </span>
-                          </span>
-                        </span>
-                </li>
-                <li class="slide" tabindex="1" id="l5">
-                        <span class="slide-outer">
-                          <span class="slide-inner">
-                            <span class="slide-gfx" id="s5">
-                              <img src="/css/img/HowIMetYourMother.jpg" />
-                            </span>
-                          </span>
-                        </span>
-                </li>
+                    <div class="mySlides">
+                        <div class="numbertext">2 / 6</div>
+                        <img src="/css/img/Fast&furious.jpg" style="width:100%">
+                    </div>
+
+                    <div class="mySlides">
+                        <div class="numbertext">3 / 6</div>
+                        <img src="/css/img/GameOfThrones.jpg" style="width:100%">
+                    </div>
+
+                    <div class="mySlides">
+                        <div class="numbertext">4 / 6</div>
+                        <img src="/css/img/HowIMetYourMother.jpg" style="width:100%">
+                    </div>
+
+                    <div class="mySlides">
+                        <div class="numbertext">5 / 6</div>
+                        <img src="/css/img/LionKing.jpg" style="width:100%">
+                    </div>
+
+                    <div class="mySlides">
+                        <div class="numbertext">6 / 6</div>
+                        <img src="/css/img/TheWitcher.jpg" style="width:100%">
+                    </div>
+
+                    <a class="prev" onclick="plusSlides(-1)">❮</a>
+                    <a class="next" onclick="plusSlides(1)">❯</a>
+
+                    <div class="caption-container">
+                        <p id="caption"></p>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <img class="demo cursor" src="/css/img/avengers_endgame.jpg" style="width:100%" onclick="currentSlide(1)" alt="Avengers: EngGame">
+                        </div>
+                        <div class="column">
+                            <img class="demo cursor" src="/css/img/Fast&furious.jpg" style="width:100%" onclick="currentSlide(2)" alt="Fast & Furious">
+                        </div>
+                        <div class="column">
+                            <img class="demo cursor" src="/css/img/GameOfThrones.jpg" style="width:100%" onclick="currentSlide(3)" alt="Game Of Thrones">
+                        </div>
+                        <div class="column">
+                            <img class="demo cursor" src="/css/img/HowIMetYourMother.jpg" style="width:100%" onclick="currentSlide(4)" alt="How I met your Mother">
+                        </div>
+                        <div class="column">
+                            <img class="demo cursor" src="/css/img/LionKing.jpg" style="width:100%" onclick="currentSlide(5)" alt="THe Lion King">
+                        </div>
+                        <div class="column">
+                            <img class="demo cursor" src="/css/img/TheWitcher.jpg" style="width:100%" onclick="currentSlide(6)" alt="The Witcher">
+                        </div>
+                    </div>
+                </div>
 
             </ul>
         </div>
@@ -138,15 +149,34 @@
             form.submit();
         }, false);
     };
+    var slideIndex = 1;
+    showSlides(slideIndex);
 
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        captionText.innerHTML = dots[slideIndex-1].alt;
+    }
 </script>
-<style>
-    /* my slider was designed for an image background (optional) */
-    /*html, body { height: 100%; padding: 0; margin: 0; }*/
-    /*body { background: #fff; }*/
-
-    /* project unique slide graphics settings, completely whatever you want them to be (optional) */
-
-</style>
 </body>
 </html>

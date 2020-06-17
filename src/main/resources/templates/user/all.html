@@ -57,7 +57,7 @@
                         <th>Last Login</th>
 
                     </tr>
-                    <tr th:each="user,iterationStatus : ${users}" style="background: #cccccc">
+                    <tr th:each="user,iterationStatus : ${users}" style="color: #cccccc">
                         <td th:text="${iterationStatus.count}">1</td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.name}"></td>
@@ -87,6 +87,7 @@
     table {
         border-collapse: collapse;
         width: 100%;
+        background: hsl(210, 14%, 49%);
     }
 
     th, td {
@@ -94,7 +95,7 @@
         padding: 8px;
     }
 
-    tr:nth-child(even){background-color: #f2f2f2}
+    tr:nth-child(even){background-color: hsl(210, 14%, 49%);}
 
     th {
         background-color: #4CAF50;
