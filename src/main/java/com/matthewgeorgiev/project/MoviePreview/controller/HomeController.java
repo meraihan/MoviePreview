@@ -25,4 +25,10 @@ public class HomeController {
     public String about() {
         return "about/about_us";
     }
+
+    @GetMapping("/404")
+    public String error() {
+        return "error/404";
+    }
+
 }

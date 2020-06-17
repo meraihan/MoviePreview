@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:th="http://www.thymeleaf.org">
+<html  lang="en" xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
@@ -9,15 +11,15 @@
 <body>
 <nav>
     <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a class="active" href="/dashboard">DASHBOARD</a></li>
+        <li><a href="/dashboard">DASHBOARD</a></li>
         <li><a href="/user/list">USERS</a></li>
         <li><a href="/movie/search">SEARCH MOVIES</a></li>
-        <li class="right"><a href="/about-us">ABOUT</a></li>
+        <li class="right"><a class="active" href="/about-us">ABOUT</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MORE</a>
             <div class="dropdown-content">
-                <a href="#">My Account</a>
-                <a href="#">Settings</a>
+                <a href="#">Find User</a>
+                <a href="#">About</a>
                 <a href="#" id="logout">Logout</a>
             </div>
         </li>
@@ -60,6 +62,17 @@
 
 
 </div>
+<footer style="text-align: center;color: #cccccc">
+    © 2020 Matthew Georgiev and Andrew Stoyanov
+    <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> |
+                <a href="javascript: document.footerLogout.submit()" role="menuitem">Sign Out</a>
+                <form name="footerLogout" th:action="@{/logout}" method="POST" th:hidden="true">
+                     <input th:hidden="true" type="submit" value="Logout"/>
+                </form>
+            </span>
+</footer>
 </body>
 <style>
     body {
@@ -108,4 +121,16 @@
         }
     }
 </style>
+<script>
+    window.onload = function() {
+        var logoutBtn = document.getElementById('logout');
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var form = document.getElementById('logoutForm');
+            console.log('Logging out');
+            form.submit();
+        }, false);
+    };
+
+</script>
 </html>

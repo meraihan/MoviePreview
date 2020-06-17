@@ -1,20 +1,47 @@
-<!DOCTYPE HTML>
-<HTML xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      layout:decorate="~{base}">
-<div layout:fragment="page_content" id="search_content">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Movie Review</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
+
+</head>
+<body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
+<form id="logoutForm" hidden="hidden" method="post" th:action="@{/logout}">
+
+</form>
+<nav>
+    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
+        <li><a href="/dashboard">DASHBOARD</a></li>
+        <li><a href="/user/list">USERS</a></li>
+        <li><a class="active" href="/movie/search">SEARCH MOVIES</a></li>
+        <li class="right"><a href="/about-us">ABOUT</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">MORE</a>
+            <div class="dropdown-content">
+                <a href="#">Find User</a>
+                <a href="/about-us">About</a>
+                <a href="#" id="logout">Logout</a>
+            </div>
+        </li>
+    </ul>
+
+</nav>
+
+<div class="content">
     <link rel="stylesheet" href="/css/form/style.css">
     <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
         <ul class="cd-faq__categories">
-            <!--            <li><a class="cd-faq__category cd-faq__category-selected truncate" href="#basics">Basics</a></li>-->
             <li><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
             <li><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
             <li><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
             <li><a class="cd-faq__category truncate" href="#">About</a></li>
             <li><a class="cd-faq__category truncate" id="logout" href="#delivery">Logout</a></li>
-        </ul> <!-- cd-faq__categories -->
+        </ul>
 
         <div class="cd-faq__items">
 
@@ -62,49 +89,40 @@
                     </table>
                 </form>
 
-            </ul> <!-- cd-faq__group -->
-        </div> <!-- cd-faq__items -->
+            </ul>
+        </div>
 
         <a href="#0" class="cd-faq__close-panel text-replace">Close</a>
 
         <div class="cd-faq__overlay" aria-hidden="true"></div>
     </section>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even){background-color: #f2f2f2}
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        #cls{
-            padding: 10px;
-            font-size: 17px;
-            border: 1px solid grey;
-            float: left;
-            width: 80%;
-            background: #f1f1f1;
-        }
-        #btn{
-            float: left;
-            width: 20%;
-            padding: 10px;
-            background: #4CAF50;
-            color: white;
-            font-size: 17px;
-            border: 1px solid grey;
-            border-left: none;
-            cursor: pointer;
-        }
-    </style>
 </div>
-</HTML>
+
+<footer style="text-align: center;color: #cccccc">
+    © 2020 Matthew Georgiev and Andrew Stoyanov
+    <span sec:authorize="isAuthenticated()">
+                    | Logged user: <span sec:authentication="name"></span> |
+                    Roles: <span sec:authentication="principal.authorities"></span> |
+                    <a href="javascript: document.footerLogout.submit()" role="menuitem">Sign Out</a>
+                    <form name="footerLogout" th:action="@{/logout}" method="POST" th:hidden="true">
+                         <input th:hidden="true" type="submit" value="Logout"/>
+                    </form>
+                </span>
+</footer>
+
+
+
+<script>
+    window.onload = function() {
+        var logoutBtn = document.getElementById('logout');
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var form = document.getElementById('logoutForm');
+            console.log('Logging out');
+            form.submit();
+        }, false);
+    };
+
+</script>
+</body>
+</html>

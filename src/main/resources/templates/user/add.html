@@ -1,115 +1,186 @@
-<!DOCTYPE HTML>
-<HTML xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-      layout:decorate="~{base}">
-<div layout:fragment="page_content" id="search_content">
-    <h1 style="text-align: center;color: #cccccc";>User Registration</h1>
-<form th:action="@{/user/register}" th:method="POST" th:object="${user}" enctype="multipart/form-data">
-    <div class="container">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Movie Review</title>
+    <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
 
-        <label for="username" style="color: #cccccc"><b>Username</b></label>
-        <input type="text" id="username" placeholder="username" th:field="*{username}" required/>
-
-        <label for="password" style="color: #cccccc"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" id="password" th:field="*{password}" required/>
-
-        <label for="phone" style="color: #cccccc"><b>Phone</b></label>
-        <input type="text" placeholder="Enter Phone" id="phone" th:field="*{phone}" required/>
-
-        <div sec:authorize-expr="hasAuthority('ADMIN')">
-            <label for="role" style="color: #cccccc">Roles</label>
-            <select name="role" id="role" th:field="*{role}" required>
-                <option th:each="role, iteration: ${roles}" th:value="${role}" th:text="${role}"></option>
-            </select>
-        </div>
-        <label for="name" style="color: #cccccc"><b>Name</b></label>
-        <input type="text" id="name" placeholder="name" th:field="*{name}" required/> <br></br>
-
-        <label for="img" style="color: #cccccc"><b>Select image:</b></label> &nbsp;&nbsp;&nbsp;
-        <input type="file" id="img" name="image" accept="image/*">
-        <br></br>
-        <button type="submit" class="registerbtn">Register</button>
-    </div>
-
-    <div class="container signin" style="color: #cccccc" th:if="${not #authorization.expression('isAuthenticated()')}">
-        <p>Already have an account? <a th:href="@{/login}" style="color: #4CAF50;">Sign in</a>.</p>
-    </div>
+</head>
+<body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
+<form id="logoutForm" hidden="hidden" method="post" th:action="@{/logout}">
 
 </form>
-    <style>
-        /*body {font-family: Arial, Helvetica, sans-serif;  background: rgba(0,0,0,0.8);}*/
-        form {
-            width: 500px;
-            height: 500px;
-            padding: 50px;
-            border: 3px solid #f1f1f1;
-            margin:auto;
-        }
+<nav>
+    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
+        <li><a href="/dashboard">DASHBOARD</a></li>
+        <li><a class="active" href="/user/list">USERS</a></li>
+        <li><a href="/movie/search">SEARCH MOVIES</a></li>
+        <li class="right"><a href="/about-us">ABOUT</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">MORE</a>
+            <div class="dropdown-content">
+                <a href="#">Find User</a>
+                <a href="/about-us">About</a>
+                <a href="#" id="logout">Logout</a>
+            </div>
+        </li>
+    </ul>
 
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
+</nav>
 
-        input[type="file"]{
-            color: #cccccc
-        }
+<div class="content">
+    <link rel="stylesheet" href="/css/form/style.css">
+    <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+        <ul class="cd-faq__categories" th:if="${#authorization.expression('isAuthenticated()')}">
+            <!--            <li><a class="cd-faq__category cd-faq__category-selected truncate" href="#basics">Basics</a></li>-->
+            <li><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
+            <li><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
+            <li><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
+            <li><a class="cd-faq__category truncate" href="#">About</a></li>
+            <li><a class="cd-faq__category truncate" id="logout" href="#">Logout</a></li>
+        </ul> <!-- cd-faq__categories -->
 
-        #role{
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
+        <div class="cd-faq__items">
+            <ul id="delivery" class="cd-faq__group">
+                <h2 style="text-align: center;color: #cccccc;margin-top: -30px;">User Registration</h2>
+                <form th:action="@{/user/register}" th:method="POST" th:object="${user}" enctype="multipart/form-data">
+                    <div class="container">
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
+                        <label for="username" style="color: #cccccc"><b>Username</b></label>
+                        <input type="text" id="username" placeholder="username" th:field="*{username}" required/>
 
-        button:hover {
-            opacity: 0.8;
-        }
+                        <label for="password" style="color: #cccccc"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" id="password" th:field="*{password}" required/>
 
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
+                        <label for="phone" style="color: #cccccc"><b>Phone</b></label>
+                        <input type="text" placeholder="Enter Phone" id="phone" th:field="*{phone}" required/>
 
-        img.avatar {
-            width: 30%;
-            border-radius: 20%
-        }
+                        <div sec:authorize-expr="hasAuthority('ADMIN')">
+                            <label for="role" style="color: #cccccc">Roles</label>
+                            <select name="role" id="role" th:field="*{role}" required>
+                                <option th:each="role, iteration: ${roles}" th:value="${role}" th:text="${role}"></option>
+                            </select>
+                        </div>
+                        <label for="name" style="color: #cccccc"><b>Name</b></label>
+                        <input type="text" id="name" placeholder="name" th:field="*{name}" required/> <br></br>
 
-        .container {
-            padding: 16px;
-        }
+                        <label for="img" style="color: #cccccc"><b>Select image:</b></label> &nbsp;&nbsp;&nbsp;
+                        <input type="file" id="img" name="image" accept="image/*">
+                        <br></br>
+                        <button type="submit" class="registerbtn">Register</button>
+                    </div>
 
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
+                    <div class="container signin" style="color: #cccccc" th:if="${not #authorization.expression('isAuthenticated()')}">
+                        <p>Already have an account? <a th:href="@{/login}" style="color: #4CAF50;">Sign in</a>.</p>
+                    </div>
 
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-        }
-    </style>
+                </form>
+            </ul>
+        </div>
+    </section>
+
 </div>
-</HTML>
+
+<footer style="text-align: center;color: #cccccc">
+    © 2020 Matthew Georgiev and Andrew Stoyanov
+    <span sec:authorize="isAuthenticated()">
+                    | Logged user: <span sec:authentication="name"></span> |
+                    Roles: <span sec:authentication="principal.authorities"></span> |
+                    <a href="javascript: document.footerLogout.submit()" role="menuitem">Sign Out</a>
+                    <form name="footerLogout" th:action="@{/logout}" method="POST" th:hidden="true">
+                         <input th:hidden="true" type="submit" value="Logout"/>
+                    </form>
+                </span>
+</footer>
+
+
+<style>
+    form {
+        width: 750px;
+        height: 770px;
+        padding: 50px;
+        border: 3px solid #f1f1f1;
+        margin: 20px;
+        margin-left: 100px;
+    }
+
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    input[type="file"]{
+        color: #cccccc
+    }
+
+    #role{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+    }
+
+    img.avatar {
+        width: 30%;
+        border-radius: 20%
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+    }
+</style>
+<script>
+    window.onload = function() {
+        var logoutBtn = document.getElementById('logout');
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var form = document.getElementById('logoutForm');
+            console.log('Logging out');
+            form.submit();
+        }, false);
+    };
+
+</script>
+</body>
+</html>

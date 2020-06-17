@@ -185,18 +185,18 @@ img,video,svg{
     -ms-flex-preferred-size:100%;
     flex-basis:100%
 }
-[class*="grid-gap"]{
-    margin-bottom:1em * -1;
-    margin-bottom:calc(var(--grid-gap, 1em)*-1);
-    margin-right:1em * -1;
-    margin-right:calc(var(--grid-gap, 1em)*-1)
-}
-[class*="grid-gap"]>*{
-    margin-bottom:1em;
-    margin-bottom:var(--grid-gap, 1em);
-    margin-right:1em;
-    margin-right:var(--grid-gap, 1em)
-}
+/*[class*="grid-gap"]{*/
+/*    margin-bottom:1em * -1;*/
+/*    margin-bottom:calc(var(--grid-gap, 1em)*-1);*/
+/*    margin-right:1em * -1;*/
+/*    margin-right:calc(var(--grid-gap, 1em)*-1)*/
+/*}*/
+/*[class*="grid-gap"]>*{*/
+/*    margin-bottom:1em;*/
+/*    margin-bottom:var(--grid-gap, 1em);*/
+/*    margin-right:1em;*/
+/*    margin-right:var(--grid-gap, 1em)*/
+/*}*/
 .grid-gap-xxxxs{
     --grid-gap: var(--space-xxxxs)
 }
@@ -3397,3 +3397,45 @@ body{
     font-size:0.83333em;
     font-size:var(--text-sm)
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+#cls{
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+#btn{
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+.foot{
+    text-align: center;
+    color: #cccccc;
+}
+
+
