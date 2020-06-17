@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -40,6 +41,8 @@ public class UserService {
             e.printStackTrace();
         }
         user.setPassword(Helper.bCryptEncoder.encode(user.getPassword()));
+        user.setLastLoginAt(LocalDateTime.now());
+        user.setCreatedAt(LocalDateTime.now());
         return userRepository.add(user);
     }
 }

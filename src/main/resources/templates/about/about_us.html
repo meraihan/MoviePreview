@@ -18,8 +18,8 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MORE</a>
             <div class="dropdown-content">
-                <a href="#">Find User</a>
-                <a href="#">About</a>
+                <a href="/user/find"  sec:authorize-expr="hasAuthority('ADMIN')">Find User</a>
+                <a href="/about-us">About</a>
                 <a href="#" id="logout">Logout</a>
             </div>
         </li>
@@ -62,7 +62,7 @@
 
 
 </div>
-<footer style="text-align: center;color: #cccccc">
+<footer class="foot">
     © 2020 Matthew Georgiev and Andrew Stoyanov
     <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
@@ -87,8 +87,10 @@
 
     .card {
         box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
-        margin: 140px;
-        margin-left: 350px;
+        margin: 100px;
+        margin-left: 307px;
+        margin-top: 145px;
+        width: 450px;
     }
     element.style {
         width: 100%;

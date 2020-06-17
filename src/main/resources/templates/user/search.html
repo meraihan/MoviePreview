@@ -23,7 +23,7 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MORE</a>
             <div class="dropdown-content">
-                <a href="#">Find User</a>
+                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">Find User</a>
                 <a href="/about-us">About</a>
                 <a href="#" id="logout">Logout</a>
             </div>
@@ -36,9 +36,9 @@
     <link rel="stylesheet" href="/css/form/style.css">
     <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
         <ul class="cd-faq__categories">
-            <li><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
-            <li><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
-            <li><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
+            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
+            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
+            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
             <li><a class="cd-faq__category truncate" href="#">About</a></li>
             <li><a class="cd-faq__category truncate" id="logout" href="#delivery">Logout</a></li>
         </ul>
@@ -61,7 +61,7 @@
     </section>
 </div>
 
-<footer style="text-align: center;color: #cccccc">
+<footer class="foot">
     © 2020 Matthew Georgiev and Andrew Stoyanov
     <span sec:authorize="isAuthenticated()">
                     | Logged user: <span sec:authentication="name"></span> |

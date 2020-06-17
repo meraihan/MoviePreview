@@ -23,7 +23,7 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MORE</a>
             <div class="dropdown-content">
-                <a href="#">Find User</a>
+                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">Find User</a>
                 <a href="/about-us">About</a>
                 <a href="#" id="logout">Logout</a>
             </div>
@@ -36,52 +36,85 @@
     <link rel="stylesheet" href="/css/form/style.css">
     <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
         <ul class="cd-faq__categories">
-            <li><a class="cd-faq__category truncate" href="user/find">Find User</a></li>
-            <li><a class="cd-faq__category truncate" href="user/list">User List</a></li>
-            <li><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
+            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="user/find">Find User</a></li>
+            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="user/list">User List</a></li>
+            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
             <li><a class="cd-faq__category truncate" href="#privacy">About</a></li>
             <li><a class="cd-faq__category truncate" id="logout" href="#delivery">Logout</a></li>
         </ul> <!-- cd-faq__categories -->
 
         <div class="cd-faq__items">
 
-            <ul id="delivery" class="cd-faq__group">
-                <li class="cd-faq__title"><h2>Delivery</h2></li>
-                <li class="cd-faq__item">
-                    <a class="cd-faq__trigger" href="#0"><span>What should I do if my order hasn't been delivered yet?</span></a>
+            <ul id="delivery" class="cd-faq__group css-slider with-responsive-images with-selection-disabled with-reflection with-fade-in">
+                <a class="cd-faq__trigger" href="#"><span>Welcome to the Most Amazing Movie Library</span></a>
+                <li class="">
                     <div class="cd-faq__content">
                         <div class="text-component">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit quidem delectus rerum eligendi mollitia, repudiandae quae beatae. Et repellat quam atque corrupti iusto architecto impedit explicabo repudiandae qui similique aut iure ipsum quis inventore nulla error aliquid alias quia dolorem dolore, odio excepturi veniam odit veritatis. Quo iure magnam, et cum. Laudantium, eaque non? Tempore nihil corporis cumque dolor ipsum accusamus sapiente aliquid quis ea assumenda deserunt praesentium voluptatibus, accusantium a mollitia necessitatibus nostrum voluptatem numquam modi ab, sint rem.</p>
-                        </div>
-                    </div> <!-- cd-faq__content -->
-                </li>
+                            <p>
+                                Welcome to this web application, here you can browse movies and  rate them.
+                                The web application is connected with a database with a lot of movies in it, we(the admins) hope that you will be able to find your favourite movie without a problem.
+                                Soo, don’t hesitate to click on the “Search movie” to start rating your favourite movie(s).
 
-                <li class="cd-faq__item">
-                    <a class="cd-faq__trigger" href="#0"><span>How can I find your international delivery information?</span></a>
-                    <div class="cd-faq__content">
-                        <div class="text-component">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis provident officiis, reprehenderit numquam. Praesentium veritatis eos tenetur magni debitis inventore fugit, magnam, reiciendis, saepe obcaecati ex vero quaerat distinctio velit.</p>
-                        </div>
-                    </div> <!-- cd-faq__content -->
-                </li>
-                <li class="cd-faq__item">
-                    <a class="cd-faq__trigger" href="#0"><span>How can I find your international delivery information?</span></a>
-                    <div class="cd-faq__content">
-                        <div class="text-component">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis provident officiis, reprehenderit numquam. Praesentium veritatis eos tenetur magni debitis inventore fugit, magnam, reiciendis, saepe obcaecati ex vero quaerat distinctio velit.</p>
+                            </p>
                         </div>
                     </div>
                 </li>
+                <li class="slide" tabindex="1" id="l1">
+                    <a href="#">
+                        <span class="slide-outer">
+                          <span class="slide-inner">
+                            <span class="slide-gfx" id="s1">
+                              <img src="/css/img/LionKing.jpg" />
+                            </span>
+                          </span>
+                        </span>
+                    </a>
+                </li>
+
+                <li class="slide" tabindex="1" id="l2">
+                        <span class="slide-outer">
+                          <span class="slide-inner">
+                            <span class="slide-gfx" id="s2">
+                              <img src="/css/img/avengers_endgame.jpg"  />
+                            </span>
+                          </span>
+                        </span>
+                </li>
+                <li class="slide" tabindex="1" id="l3">
+                        <span class="slide-outer">
+                          <span class="slide-inner">
+                            <span class="slide-gfx" id="s3">
+                              <img src="/css/img/Fast&furious.jpg" />
+                            </span>
+                          </span>
+                        </span>
+                </li>
+                <li class="slide" tabindex="1" id="l4">
+                        <span class="slide-outer">
+                          <span class="slide-inner">
+                            <span class="slide-gfx" id="s4">
+                              <img src="/css/img/GameOfThrones.jpg" />
+                            </span>
+                          </span>
+                        </span>
+                </li>
+                <li class="slide" tabindex="1" id="l5">
+                        <span class="slide-outer">
+                          <span class="slide-inner">
+                            <span class="slide-gfx" id="s5">
+                              <img src="/css/img/HowIMetYourMother.jpg" />
+                            </span>
+                          </span>
+                        </span>
+                </li>
+
             </ul>
         </div>
 
-        <a href="#0" class="cd-faq__close-panel text-replace">Close</a>
-
-        <div class="cd-faq__overlay" aria-hidden="true"></div>
     </section>
 </div>
 
-<footer style="text-align: center;color: #cccccc">
+<footer class="foot">
     © 2020 Matthew Georgiev and Andrew Stoyanov
     <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
@@ -107,5 +140,13 @@
     };
 
 </script>
+<style>
+    /* my slider was designed for an image background (optional) */
+    /*html, body { height: 100%; padding: 0; margin: 0; }*/
+    /*body { background: #fff; }*/
+
+    /* project unique slide graphics settings, completely whatever you want them to be (optional) */
+
+</style>
 </body>
 </html>
