@@ -63,64 +63,40 @@
                         </div>
                     </div>
                 </li>
-                <div class="container">
-                    <div class="mySlides">
-                        <div class="numbertext">1 / 6</div>
-                        <img src="/css/img/avengers_endgame.jpg" style="width:100%">
+                <div class="CSSgal">
+
+                    <!-- Don't wrap targets in parent -->
+                    <s id="s1"></s>
+                    <s id="s2"></s>
+                    <s id="s3"></s>
+                    <s id="s4"></s>
+
+                    <div class="slider">
+                        <img src="/css/img/Avatar.jpg" width="500px" height="600px">
+                        <img src="/css/img/TheWitcher.jpg" width="500px" height="600px">
+                        <img src="/css/img/avengers_endgame.jpg" width="500px" height="600px">
+<!--                        <img src="/css/img/HowIMetYourMother.jpg" width="500px" height="600px">-->
+                        <img src="/css/img/GameOfThrones.jpg" width="500px" height="600px">
+<!--                        <div style="background:#5fc;">Slide 1</div>-->
+<!--                        <div style="background-image:url('/css/img/TheWitcher.jpg');"></div>-->
+<!--                        <div style="background:#fc5;">Slide 3</div>-->
+<!--                        <div style="background:#f5c;">Slide 4</div>-->
                     </div>
 
-                    <div class="mySlides">
-                        <div class="numbertext">2 / 6</div>
-                        <img src="/css/img/Fast&furious.jpg" style="width:100%">
+                    <div class="prevNext">
+                        <div><a href="#s4">4</a><a href="#s2">2</a></div>
+                        <div><a href="#s1">1</a><a href="#s3">3</a></div>
+                        <div><a href="#s2">2</a><a href="#s4">4</a></div>
+                        <div><a href="#s3">3</a><a href="#s1">1</a></div>
                     </div>
 
-                    <div class="mySlides">
-                        <div class="numbertext">3 / 6</div>
-                        <img src="/css/img/GameOfThrones.jpg" style="width:100%">
+                    <div class="bullets">
+                        <a href="#s1">1</a>
+                        <a href="#s2">2</a>
+                        <a href="#s3">3</a>
+                        <a href="#s4">4</a>
                     </div>
 
-                    <div class="mySlides">
-                        <div class="numbertext">4 / 6</div>
-                        <img src="/css/img/HowIMetYourMother.jpg" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">5 / 6</div>
-                        <img src="/css/img/LionKing.jpg" style="width:100%">
-                    </div>
-
-                    <div class="mySlides">
-                        <div class="numbertext">6 / 6</div>
-                        <img src="/css/img/TheWitcher.jpg" style="width:100%">
-                    </div>
-
-                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                    <a class="next" onclick="plusSlides(1)">❯</a>
-
-                    <div class="caption-container">
-                        <p id="caption"></p>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">
-                            <img class="demo cursor" src="/css/img/avengers_endgame.jpg" style="width:100%" onclick="currentSlide(1)" alt="Avengers: EngGame">
-                        </div>
-                        <div class="column">
-                            <img class="demo cursor" src="/css/img/Fast&furious.jpg" style="width:100%" onclick="currentSlide(2)" alt="Fast & Furious">
-                        </div>
-                        <div class="column">
-                            <img class="demo cursor" src="/css/img/GameOfThrones.jpg" style="width:100%" onclick="currentSlide(3)" alt="Game Of Thrones">
-                        </div>
-                        <div class="column">
-                            <img class="demo cursor" src="/css/img/HowIMetYourMother.jpg" style="width:100%" onclick="currentSlide(4)" alt="How I met your Mother">
-                        </div>
-                        <div class="column">
-                            <img class="demo cursor" src="/css/img/LionKing.jpg" style="width:100%" onclick="currentSlide(5)" alt="THe Lion King">
-                        </div>
-                        <div class="column">
-                            <img class="demo cursor" src="/css/img/TheWitcher.jpg" style="width:100%" onclick="currentSlide(6)" alt="The Witcher">
-                        </div>
-                    </div>
                 </div>
 
             </ul>
@@ -139,6 +115,111 @@
 </footer>
 
 
+<style>
+
+
+
+    .CSSgal{
+        position: relative;
+        overflow: hidden;
+        height:   100%; /* Or set a fixed height */
+    }
+
+    /* SLIDER */
+    .CSSgal .slider{
+        height:      100%;
+        white-space: nowrap;
+        font-size:   0;
+        transition:  0.8s;
+    }
+
+    /* SLIDES */
+    .CSSgal .slider > *{
+        font-size:       1rem;
+        display:         inline-block;
+        vertical-align:  text-top;
+        height:          100%;
+        width:           100%;
+        background:      none 50% no-repeat;
+        background-size: cover;
+    }
+
+    /* PREV/NEXT, CONTAINERS & ANCHORS */
+    .CSSgal .prevNext{
+        position: absolute;
+        z-index:  1;
+        top:      50%;
+        width:    100%;
+        height:   0;
+    }
+    .CSSgal .prevNext > div+div{
+        visibility: hidden; /* Hide all but first P/N container */
+    }
+    .CSSgal .prevNext a{
+        background:  #fff;
+        position:    absolute;
+        width:       40px;
+        height:      40px;
+        line-height: 40px;
+        text-align:  center;
+        opacity:     0.7;
+        text-decoration:   none;
+        -webkit-transform: translateY( -50% );
+        transform: translateY( -50% );
+    }
+    .CSSgal .prevNext a:hover{
+        opacity: 1;
+    }
+    .CSSgal .prevNext a+a{
+        right: 0px;
+    }
+
+    /* NAVIGATION */
+    .CSSgal .bullets{
+        position:   absolute;
+        z-index:    2;
+        bottom:     0;
+        padding:    10px 0;
+        width:      100%;
+        text-align: center;
+    }
+    .CSSgal .bullets > a{
+        display:         inline-block;
+        width:           20px;
+        height:          20px;
+        line-height:     20px;
+        text-decoration: none;
+        text-align:      center;
+        border-radius:   50%;
+        background:      rgba(255,255,255,1);
+    }
+    .CSSgal .bullets > a+a{
+        background: rgba(255,255,255,0.5); /* Dim all but first */
+    }
+    .CSSgal .bullets > a:hover{
+        background: rgba(0,255,255,0.9);
+    }
+
+    /* ACTIVE NAVIGATION ANCHOR */
+    .CSSgal >s:target ~ .bullets >* { background: rgba(255,255,255,0.5); }
+    #s1:target ~ .bullets >*:nth-child(1){ background: rgba(255,255,255,  1); }
+    #s2:target ~ .bullets >*:nth-child(2){ background: rgba(255,255,255,  1); }
+    #s3:target ~ .bullets >*:nth-child(3){ background: rgba(255,255,255,  1); }
+    #s4:target ~ .bullets >*:nth-child(4){ background: rgba(255,255,255,  1); }
+
+    /* PREV/NEXT CONTAINERS VISIBILITY */
+    .CSSgal >s:target ~ .prevNext >* { visibility:  hidden; }
+    #s1:target ~ .prevNext >*:nth-child(1){ visibility: visible; }
+    #s2:target ~ .prevNext >*:nth-child(2){ visibility: visible; }
+    #s3:target ~ .prevNext >*:nth-child(3){ visibility: visible; }
+    #s4:target ~ .prevNext >*:nth-child(4){ visibility: visible; }
+
+    /* SLIDER ANIMATION POSITIONS */
+    #s1:target ~ .slider{ transform: translateX(   0%); -webkit-transform: translateX(   0%); }
+    #s2:target ~ .slider{ transform: translateX(-100%); -webkit-transform: translateX(-100%); }
+    #s3:target ~ .slider{ transform: translateX(-200%); -webkit-transform: translateX(-200%); }
+    #s4:target ~ .slider{ transform: translateX(-300%); -webkit-transform: translateX(-300%); }
+</style>
 
 <script>
     var slideIndex = 1;
