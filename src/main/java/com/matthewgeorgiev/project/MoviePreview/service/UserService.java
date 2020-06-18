@@ -45,4 +45,8 @@ public class UserService {
         user.setCreatedAt(LocalDateTime.now());
         return userRepository.add(user);
     }
+
+    public boolean delete(Integer userId) {
+        return userRepository.delete(userId);
+    }
 }

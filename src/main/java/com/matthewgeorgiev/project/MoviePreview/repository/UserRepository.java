@@ -72,4 +72,15 @@ public class UserRepository {
         return user;
     }
 
+    public boolean delete(Integer userId) {
+        log.info("deleting user of id: {} ", userId);
+        try {
+            return jdbcTemplate.update("DELETE FROM users WHERE id = ?", userId) == 1;
+        } catch (DataAccessException dae) {
+            log.error("error : {} deleting user id: {} " , dae.getLocalizedMessage(), userId);
+        }
+        return false;
+    }
+
+
 }

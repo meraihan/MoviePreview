@@ -35,6 +35,7 @@
             </div>
         </li>
     </ul>
+
 </nav>
 
 <div class="content">
@@ -51,37 +52,32 @@
         <div class="cd-faq__items">
 
             <ul id="delivery" class="cd-faq__group">
-                <li class="cd-faq__title"><h2>Search By Movie Title</h2></li>
-                <form th:action="@{/movie/search}" th:method="POST" modelAttribute="title">
-                    <input type="text" name="title" id="cls" placeholder="Search By Movie Title"/>
-                    <input type="submit" id="btn" value="SEARCH"/>
-                </form>
-                <br><br><br>
-                <table th:if="${not #lists.isEmpty(movies) }">
-                    <thead>
+                <li style="text-align: center;"><h3 style="color: #cccccc;">USER RATINGS</h3></li><br>
+                <table>
                     <tr>
                         <th>Serial</th>
+                        <th>Poster</th>
                         <th>Title</th>
                         <th>Year</th>
                         <th>Rating</th>
+                        <th>User rating</th>
+
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr  th:each="movie,iterationStatus : ${movies}" style="background: #cccccc">
+                    <tr th:each="movie,iterationStatus : ${movies}" style="color: #cccccc">
                         <td th:text="${iterationStatus.count}">1</td>
-                        <td><a th:href="@{'/movie/rate/' + ${movie.imdbID}}" th:text="${movie.Title}"></a></td>
+                        <td><img th:src="${movie.Poster}" th:height="150px" th:width="150px"/></td>
+                        <td>
+                            <span th:text="${movie.Title}"></span>
+<!--                            <input th:hidden="hidden" type="text" th:field="*{movie.imdbID}" th:value="${movie.imdbID}"/>-->
+                        </td>
                         <td th:text="${movie.Year}"></td>
                         <td th:text="${movie.imdbRating}"></td>
+                        <td  th:text="${movie.userRating}"></td>
                     </tr>
-                    </tbody>
                 </table>
 
             </ul>
         </div>
-
-        <a href="#0" class="cd-faq__close-panel text-replace">Close</a>
-
-        <div class="cd-faq__overlay" aria-hidden="true"></div>
     </section>
 </div>
 
@@ -97,6 +93,26 @@
                 </span>
 </footer>
 
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        background: hsl(210, 14%, 49%);
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: hsl(210, 14%, 49%);}
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
 <script>
     window.onload = function() {
         var logoutBtn = document.getElementById('logout');
@@ -107,6 +123,7 @@
             form.submit();
         }, false);
     };
+
     window.onload = function() {
         var logoutBtn = document.getElementById('logout1');
         logoutBtn.addEventListener('click', function (e) {
@@ -116,6 +133,7 @@
             form.submit();
         }, false);
     };
+
 </script>
 </body>
 </html>

@@ -16,16 +16,22 @@
 </form>
 <nav>
     <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a href="/dashboard">DASHBOARD</a></li>
-        <li><a class="active" href="/user/list">USERS</a></li>
-        <li><a href="/movie/search">SEARCH MOVIES</a></li>
+        <li><a class="active" href="/dashboard">DASHBOARD</a></li>
+        <li><a href="/user/list">USERS</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">MOVIES</a>
+            <div class="dropdown-content">
+                <a href="/movie/ratings" sec:authorize-expr="hasAuthority('ADMIN')">RATINGS</a>
+                <a href="/movie/search">SEARCH</a>
+            </div>
+        </li>
         <li class="right"><a href="/about-us">ABOUT</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MORE</a>
             <div class="dropdown-content">
-                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">Find User</a>
-                <a href="/about-us">About</a>
-                <a href="#" id="logout">Logout</a>
+                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND USER</a>
+                <a href="/about-us">ABOUT</a>
+                <a href="#" id="logout">LOGOUT</a>
             </div>
         </li>
     </ul>
@@ -40,8 +46,8 @@
             <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
             <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
             <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
-            <li><a class="cd-faq__category truncate" href="#">About</a></li>
-            <li><a class="cd-faq__category truncate" id="logout" href="#">Logout</a></li>
+            <li><a class="cd-faq__category truncate" href="/about-us">About</a></li>
+            <li><a class="cd-faq__category truncate" id="logout1" href="#">Logout</a></li>
         </ul> <!-- cd-faq__categories -->
 
         <div class="cd-faq__items">
@@ -176,6 +182,16 @@
 <script>
     window.onload = function() {
         var logoutBtn = document.getElementById('logout');
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var form = document.getElementById('logoutForm');
+            console.log('Logging out');
+            form.submit();
+        }, false);
+    };
+
+    window.onload = function() {
+        var logoutBtn = document.getElementById('logout1');
         logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
             var form = document.getElementById('logoutForm');

@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -61,6 +62,27 @@ public class MovieService {
             movie.setUserRating(rating.getRating());
         }
         return movie;
+    }
+
+    public List<Movie> findMoviesByIMDBId() {
+        List<Movie> movies = new ArrayList<>();
+        List<Rating> ratings = ratingRepository.findAll();
+        ratings.stream().forEach(r -> {
+            RestTemplate restTemplate = restTemplateBuilder.build();
+            HttpHeaders headers = new HttpHeaders();
+            HttpEntity entity = new HttpEntity(headers);
+            String url = this.url + "&i=" + r.getImdbID().trim();
+            ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
+            log.info("Status: {}", responseEntity.getStatusCode());
+            Movie movie = responseEntity.getBody();
+            User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            Rating rating = ratingRepository.findRatingByUserIdAndImdbId(user.getId(), movie.getImdbID());
+            if (rating != null) {
+                movie.setUserRating(rating.getRating());
+            }
+            movies.add(movie);
+        });
+        return movies;
     }
 
     public Rating saveMovieRating(Movie movie) {

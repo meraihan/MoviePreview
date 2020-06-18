@@ -68,4 +68,14 @@ public class UserController {
         model.addAttribute("users", list);
         return "user/all";
     }
+
+    @GetMapping("/delete")
+    public String delete( @ModelAttribute("user") User user, final RedirectAttributes redirectAttributes) {
+        if (userService.delete(user.getId())) {
+            redirectAttributes.addFlashAttribute("success", "Successfully Deleted User..");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Deletion Failed !");
+        }
+        return "redirect:list";
+    }
 }

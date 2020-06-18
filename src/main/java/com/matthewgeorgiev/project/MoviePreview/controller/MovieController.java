@@ -31,6 +31,13 @@ public class MovieController {
         return "movie/search";
     }
 
+    @GetMapping("/ratings")
+    public String allRatings(Model model) {
+        List<Movie> movies = movieService.findMoviesByIMDBId();
+        model.addAttribute("movies", movies);
+        return "movie/rating_list";
+    }
+
     @GetMapping("/rate/{imdbID}")
     public String displayRatingPage(Model model, @PathVariable String imdbID) {
         Movie movie = movieService.findByImdbId(imdbID);
