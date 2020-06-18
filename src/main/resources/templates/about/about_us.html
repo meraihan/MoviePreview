@@ -11,7 +11,7 @@
 <body>
 <nav>
     <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a class="active" href="/dashboard">DASHBOARD</a></li>
+        <li><a href="/dashboard">DASHBOARD</a></li>
         <li><a href="/user/list">USERS</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MOVIES</a>
@@ -20,12 +20,12 @@
                 <a href="/movie/search">SEARCH</a>
             </div>
         </li>
-        <li class="right"><a href="/about-us">ABOUT</a></li>
+        <li class="right"><a class="active" href="/about-us">ABOUT</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MORE</a>
             <div class="dropdown-content">
                 <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND USER</a>
-                <a href="/about-us">ABOUT</a>
+                <a class="active" href="/about-us">ABOUT</a>
                 <a href="#" id="logout">LOGOUT</a>
             </div>
         </li>

@@ -11,13 +11,10 @@
 
 </head>
 <body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
-<form id="logoutForm" hidden="hidden" method="post" th:action="@{/logout}">
-
-</form>
 <nav>
     <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a class="active" href="/dashboard">DASHBOARD</a></li>
-        <li><a href="/user/list">USERS</a></li>
+        <li><a href="/dashboard">DASHBOARD</a></li>
+        <li><a class="active" href="/user/list">USERS</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">MOVIES</a>
             <div class="dropdown-content">
@@ -31,7 +28,7 @@
             <div class="dropdown-content">
                 <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND USER</a>
                 <a href="/about-us">ABOUT</a>
-                <a href="#" id="logout">LOGOUT</a>
+                <a th:href="@{/logout}">LOGOUT</a>
             </div>
         </li>
     </ul>
@@ -45,7 +42,7 @@
             <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
             <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
             <li><a class="cd-faq__category truncate" href="/about-us">About</a></li>
-            <li><a class="cd-faq__category truncate" id="logout1" href="#delivery">Logout</a></li>
+            <li><a class="cd-faq__category truncate" th:href="@{/logout}">Logout</a></li>
         </ul>
 
         <div class="cd-faq__items">
@@ -59,10 +56,6 @@
 
             </ul>
         </div>
-
-        <a href="#0" class="cd-faq__close-panel text-replace">Close</a>
-
-        <div class="cd-faq__overlay" aria-hidden="true"></div>
     </section>
 </div>
 
@@ -71,35 +64,8 @@
     <span sec:authorize="isAuthenticated()">
                     | Logged user: <span sec:authentication="name"></span> |
                     Roles: <span sec:authentication="principal.authorities"></span> |
-                    <a href="javascript: document.footerLogout.submit()" role="menuitem">Sign Out</a>
-                    <form name="footerLogout" th:action="@{/logout}" method="POST" th:hidden="true">
-                         <input th:hidden="true" type="submit" value="Logout"/>
-                    </form>
+                    <a th:href="@{/logout}" role="menuitem">Sign Out</a>
                 </span>
 </footer>
-
-
-
-<script>
-    window.onload = function() {
-        var logoutBtn = document.getElementById('logout');
-        logoutBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            var form = document.getElementById('logoutForm');
-            console.log('Logging out');
-            form.submit();
-        }, false);
-    };
-    window.onload = function() {
-        var logoutBtn = document.getElementById('logout1');
-        logoutBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            var form = document.getElementById('logoutForm');
-            console.log('Logging out');
-            form.submit();
-        }, false);
-    };
-
-</script>
 </body>
 </html>
