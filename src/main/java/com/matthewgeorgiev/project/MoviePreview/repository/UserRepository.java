@@ -61,8 +61,8 @@ public class UserRepository {
         parameters.put("role", user.getRole());
         parameters.put("username", user.getUsername());
         parameters.put("img_loc", user.getImgLocation());
-        parameters.put("last_login_at", user.getLastLoginAt());
-        parameters.put("created_at", user.getCreatedAt());
+//        parameters.put("last_login_at", user.getLastLoginAt());
+//        parameters.put("created_at", user.getCreatedAt());
         Number id = simpleJdbcInsert.executeAndReturnKey(parameters);
         if (id == null) {
             log.error("Failed to insert {}", user);
