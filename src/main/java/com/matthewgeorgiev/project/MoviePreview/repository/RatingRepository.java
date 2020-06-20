@@ -100,11 +100,10 @@ public class RatingRepository {
         return false;
     }
 
-    public Rating findRatingByUserIdAndFavourite(Integer id) {
-
-        String query = "Select * from ratings where user_id = ? order by id desc";
-        try {
-            return jdbcTemplate.queryForObject(query, new Object[]{id}, new RowMapper<Rating>() {
+    public List<Rating> findByUserId(int userId) {
+        String query = "Select * from ratings where user_id = ? and is_favourite=true order by id desc";
+        try{
+            return jdbcTemplate.query(query, new Object[]{userId}, new RowMapper<Rating>() {
                 @Override
                 public Rating mapRow(ResultSet rs, int rowNum) throws SQLException {
                     Rating rating = new Rating();
@@ -118,9 +117,9 @@ public class RatingRepository {
                     return rating;
                 }
             });
-        } catch (DataAccessException dae) {
-            log.error(dae.getLocalizedMessage());
+        }catch (DataAccessException dae){
+            log.error("rating not found, error: {}", dae.getLocalizedMessage());
+            return new ArrayList<>();
         }
-        return new Rating();
     }
 }

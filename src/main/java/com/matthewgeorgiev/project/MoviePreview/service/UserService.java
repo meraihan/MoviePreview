@@ -42,7 +42,6 @@ public class UserService {
         }
         user.setPassword(Helper.bCryptEncoder.encode(user.getPassword()));
         user.setLastLoginAt(LocalDateTime.now());
-        user.setCreatedAt(LocalDateTime.now());
         return userRepository.add(user);
     }
 

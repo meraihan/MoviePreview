@@ -1,5 +1,6 @@
 package com.matthewgeorgiev.project.MoviePreview.repository;
 
+import com.matthewgeorgiev.project.MoviePreview.model.Rating;
 import com.matthewgeorgiev.project.MoviePreview.model.User;
 import com.matthewgeorgiev.project.MoviePreview.model.rowmapper.UserRowMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +32,19 @@ public class UserRepository {
         } catch (DataAccessException dae) {
             log.error("An exception occurred when executing the following query:");
             log.error(query.replace("?", username));
+            log.error(dae.getLocalizedMessage());
+        }
+        return null;
+    }
+
+    public User findByUserId(Integer id) {
+        User user;
+        String query = "Select * from users where id=?";
+
+        try {
+            user = jdbcTemplate.queryForObject(query, new Object[] {id}, new UserRowMapper());
+            return user;
+        } catch (DataAccessException dae) { ;
             log.error(dae.getLocalizedMessage());
         }
         return null;
@@ -82,5 +97,14 @@ public class UserRepository {
         return false;
     }
 
+    public boolean updateLoginTime(LocalDateTime time, Integer userId) {
+        String query = "Update users set last_login_at = ? where id = ?";
+        try {
+            return jdbcTemplate.update(query, new Object[] {time, userId}) == 1;
+        } catch (DataAccessException dae) {
+            log.error(dae.getLocalizedMessage());
+        }
+        return false;
+    }
 
 }

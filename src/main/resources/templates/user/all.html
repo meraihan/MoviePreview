@@ -57,6 +57,7 @@
                         <th>Username</th>
                         <th>Name</th>
                         <th>Role</th>
+                        <th>Last Login</th>
                         <th>Action</th>
 
                     </tr>
@@ -65,6 +66,7 @@
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.name}"></td>
                         <td th:text="${user.role}"></td>
+                        <td th:text="${#temporals.format(user.lastLoginAt, 'dd-MM-yyyy HH:mm')}"></td>
                         <td>&nbsp;&nbsp;&nbsp;
                             <a th:href="@{/user/delete(id=${user.id})}" onclick="return confirmation()">
                                 <i style='font-size:30px;color: #160791'>&#9986;</i></a>

@@ -67,21 +67,17 @@ public class MovieService {
     public List<Movie> findMoviesByIMDBId() {
         List<Movie> movies = new ArrayList<>();
         List<Rating> ratings = ratingRepository.findAll();
-        ratings.stream().forEach(r -> {
+        ratings.stream().forEach(rating -> {
             RestTemplate restTemplate = restTemplateBuilder.build();
             HttpHeaders headers = new HttpHeaders();
             HttpEntity entity = new HttpEntity(headers);
-            String url = this.url + "&i=" + r.getImdbID().trim();
+            String url = this.url + "&i=" + rating.getImdbID().trim();
             ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
             log.info("Status: {}", responseEntity.getStatusCode());
             Movie movie = responseEntity.getBody();
-            User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            Rating rating = ratingRepository.findRatingByUserIdAndImdbId(user.getId(), movie.getImdbID());
-            if (rating != null) {
-                movie.setUserRating(rating.getRating());
-            }
-            movie.setIsFavourite(rating.getIsFavourite());
+            User user = userRepository.findByUserId(rating.getUser().getId());
             movie.setUserName(user.getName());
+            movie.setUserRating(rating.getRating());
             movies.add(movie);
         });
         return movies;
@@ -106,25 +102,20 @@ public class MovieService {
 
     public List<Movie> findMyFav() {
         List<Movie> movies = new ArrayList<>();
-        List<Rating> ratings = ratingRepository.findAll();
-        ratings.stream().forEach(r -> {
+        List<Rating> ratings = new ArrayList<>();
+        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        ratings = ratingRepository.findByUserId(user.getId());
+        ratings.stream().forEach(rating -> {
             RestTemplate restTemplate = restTemplateBuilder.build();
             HttpHeaders headers = new HttpHeaders();
             HttpEntity entity = new HttpEntity(headers);
-            String url = this.url + "&i=" + r.getImdbID().trim();
+            String url = this.url + "&i=" + rating.getImdbID().trim();
             ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
             log.info("Status: {}", responseEntity.getStatusCode());
             Movie movie = responseEntity.getBody();
-            User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-            Rating rating = ratingRepository.findRatingByUserIdAndFavourite(user.getId());
-//            if (rating != null) {
-//                movie.setUserRating(rating.getRating());
-//            }
-            movie.setUserRating(r.getRating());
-            movie.setIsFavourite(r.getIsFavourite());
-            if(movie.getIsFavourite()){
-                movies.add(movie);
-            }
+            movie.setUserName(user.getName());
+            movie.setIsFavourite(rating.getIsFavourite());
+            movies.add(movie);
         });
         return movies;
     }

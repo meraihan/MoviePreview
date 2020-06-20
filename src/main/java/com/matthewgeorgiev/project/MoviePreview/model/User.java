@@ -16,5 +16,4 @@ public class User {
     private MultipartFile image;
     private String imgLocation;
     private LocalDateTime lastLoginAt;
-    private LocalDateTime createdAt;
 }

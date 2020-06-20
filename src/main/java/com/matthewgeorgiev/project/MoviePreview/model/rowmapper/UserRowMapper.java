@@ -1,6 +1,7 @@
 package com.matthewgeorgiev.project.MoviePreview.model.rowmapper;
 
 import com.matthewgeorgiev.project.MoviePreview.model.User;
+import com.matthewgeorgiev.project.MoviePreview.utils.Helper;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -15,8 +16,7 @@ public class UserRowMapper implements RowMapper<User> {
         user.setName(resultSet.getString("name"));
         user.setPassword(resultSet.getString("password"));
         user.setRole(resultSet.getString("role"));
-//        user.setLastLoginAt(Helper.timeStampToLocalDateTime(resultSet.getTimestamp("last_login_at")));
-//        user.setCreatedAt(Helper.timeStampToLocalDateTime(resultSet.getTimestamp("created_at")));
+        user.setLastLoginAt(Helper.timeStampToLocalDateTime(resultSet.getTimestamp("last_login_at")));
         return user;
     }
 }
