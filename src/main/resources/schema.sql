@@ -16,5 +16,6 @@ create table ratings
    user_id integer not null,
    imdb_id varchar(255) not null,
    rating VARCHAR(255) not null,
+   is_favourite tinyint(1) not null default '0',
    primary key(id)
 );

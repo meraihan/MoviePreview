@@ -80,6 +80,8 @@ public class MovieService {
             if (rating != null) {
                 movie.setUserRating(rating.getRating());
             }
+            movie.setIsFavourite(rating.getIsFavourite());
+            movie.setUserName(user.getName());
             movies.add(movie);
         });
         return movies;
@@ -92,6 +94,7 @@ public class MovieService {
             rating.setImdbID(movie.getImdbID());
             rating.setRating(movie.getUserRating());
             rating.setUser(user);
+            rating.setIsFavourite(movie.getIsFavourite());
             rating = ratingRepository.addRating(rating);
         } else {
             rating.setRating(movie.getUserRating());
@@ -99,5 +102,30 @@ public class MovieService {
             log.info("Updated Rating status: {}", success);
         }
         return rating;
+    }
+
+    public List<Movie> findMyFav() {
+        List<Movie> movies = new ArrayList<>();
+        List<Rating> ratings = ratingRepository.findAll();
+        ratings.stream().forEach(r -> {
+            RestTemplate restTemplate = restTemplateBuilder.build();
+            HttpHeaders headers = new HttpHeaders();
+            HttpEntity entity = new HttpEntity(headers);
+            String url = this.url + "&i=" + r.getImdbID().trim();
+            ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
+            log.info("Status: {}", responseEntity.getStatusCode());
+            Movie movie = responseEntity.getBody();
+            User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            Rating rating = ratingRepository.findRatingByUserIdAndFavourite(user.getId());
+//            if (rating != null) {
+//                movie.setUserRating(rating.getRating());
+//            }
+            movie.setUserRating(r.getRating());
+            movie.setIsFavourite(r.getIsFavourite());
+            if(movie.getIsFavourite()){
+                movies.add(movie);
+            }
+        });
+        return movies;
     }
 }

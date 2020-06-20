@@ -18,6 +18,7 @@
             <div class="dropdown-content">
                 <a href="/movie/ratings" sec:authorize-expr="hasAuthority('ADMIN')">RATINGS</a>
                 <a href="/movie/search">SEARCH</a>
+                <a href="/movie/myfav">FAVOURITE</a>
             </div>
         </li>
         <li class="right"><a class="active" href="/about-us">ABOUT</a></li>
@@ -53,7 +54,7 @@
     </div>
 
     <div class="column">
-        <div class="card">
+        <div class="card1">
             <img src="/css/img/Andrew.jpg" alt="Mike" style="width:100%">
             <div class="container" style="color: #cccccc">
                 <h3 style="color: #cccccc;font-size: 25px">Andrew Stoyanov</h3>
@@ -93,6 +94,13 @@
     }
 
     .card {
+        box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
+        margin: 100px;
+        margin-left: 50px;
+        margin-top: 155px;
+        width: 450px;
+    }
+    .card1 {
         box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
         margin: 100px;
         margin-left: 250px;

@@ -10,4 +10,6 @@ public class Movie {
     public String imdbRating;
     public String userRating;
     public String Poster;
+    public Boolean isFavourite;
+    public String userName;
 }

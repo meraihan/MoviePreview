@@ -8,4 +8,5 @@ public class Rating {
     public User user;
     public String imdbID;
     public String rating;
+    public Boolean isFavourite;
 }

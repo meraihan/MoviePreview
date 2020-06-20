@@ -53,4 +53,11 @@ public class MovieController {
         }
         return "redirect:/movie/rate/" + movie.getImdbID();
     }
+
+    @GetMapping("/myfav")
+    public String myfav(Model model) {
+        List<Movie> movies = movieService.findMyFav();
+        model.addAttribute("movies", movies);
+        return "movie/favourite";
+    }
 }

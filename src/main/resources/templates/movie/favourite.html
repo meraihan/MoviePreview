@@ -12,7 +12,6 @@
 </head>
 <body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
 
-</form>
 <nav>
     <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
         <li><a href="/dashboard">DASHBOARD</a></li>
@@ -35,6 +34,7 @@
             </div>
         </li>
     </ul>
+
 </nav>
 
 <div class="content">
@@ -49,66 +49,34 @@
         </ul>
 
         <div class="cd-faq__items">
-
             <ul id="delivery" class="cd-faq__group">
-                <li class="cd-faq__title"><h2>Search By Movie Title</h2></li>
-                <form th:action="@{/movie/search}" th:method="POST" modelAttribute="title">
-                    <input type="text" name="title" id="cls" placeholder="Search By Movie Title"/>
-                    <input type="submit"  id="btn" value="SEARCH"/><br><br>
-                </form>
-                <br>
-                <form th:action="@{/movie/rate}" th:method="POST" th:object="${movie}">
-
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Serial</th>
-                            <th>Title</th>
-                            <th>Year</th>
-                            <th>Rating</th>
-                            <th>Your rating</th>
-                            <th>Is Favourite</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr style="color: #cccccc">
-                            <td><img th:src="${movie.Poster}" th:height="150px" th:width="150px"/></td>
-                            <td>
-                                <span th:text="${movie.Title}">Title</span>
-                                <input th:hidden="hidden" type="text" th:field="*{imdbID}" th:value="${movie.imdbID}"/>
-                            </td>
-                            <td th:text="${movie.Year}"></td>
-                            <td th:text="${movie.imdbRating}"></td>
-                            <td>
-                                <select th:field="*{userRating}">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select th:field="*{isFavourite}">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                            </td>
-                            <td><input type="submit" value="Save"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </form>
+                <li style="text-align: center;"><h3 style="color: #cccccc;">MY FAVOURITE MOVIES</h3></li><br>
+                <table>
+                    <tr>
+                        <th>Serial</th>
+                        <th>Poster</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Rating</th>
+                        <th>User rating</th>
+                        <th>Favourite</th>
+                    </tr>
+                    <tr th:each="movie,iterationStatus : ${movies}" style="color: #cccccc">
+                        <td th:text="${iterationStatus.count}">1</td>
+                        <td><img th:src="${movie.Poster}" th:height="150px" th:width="150px"/></td>
+                        <td>
+                            <span th:text="${movie.Title}"></span>
+                        </td>
+                        <td th:text="${movie.Year}"></td>
+                        <td th:text="${movie.imdbRating}"></td>
+                        <td  th:text="${movie.userRating}"></td>
+                        <td><div th:if="${movie.isFavourite} == true">YES</div>
+                        <div th:if="${movie.isFavourite} == false">NO</div></td>
+                    </tr>
+                </table>
 
             </ul>
         </div>
-
     </section>
 </div>
 
@@ -120,6 +88,26 @@
                     <a th:href="@{/logout}" role="menuitem">Sign Out</a>
                 </span>
 </footer>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        background: hsl(210, 14%, 49%);
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: hsl(210, 14%, 49%);}
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
 
 </body>
 </html>

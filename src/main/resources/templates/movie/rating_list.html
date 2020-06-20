@@ -21,6 +21,7 @@
             <div class="dropdown-content">
                 <a href="/movie/ratings" sec:authorize-expr="hasAuthority('ADMIN')">RATINGS</a>
                 <a href="/movie/search">SEARCH</a>
+                <a href="/movie/myfav">FAVOURITE</a>
             </div>
         </li>
         <li class="right"><a href="/about-us">ABOUT</a></li>
@@ -57,19 +58,19 @@
                         <th>Poster</th>
                         <th>Title</th>
                         <th>Year</th>
-                        <th>Rating</th>
-                        <th>User rating</th>
-
+                        <th>IMDB Rating</th>
+                        <th>User Name</th>
+                        <th>User Rating</th>
                     </tr>
                     <tr th:each="movie,iterationStatus : ${movies}" style="color: #cccccc">
                         <td th:text="${iterationStatus.count}">1</td>
                         <td><img th:src="${movie.Poster}" th:height="150px" th:width="150px"/></td>
                         <td>
                             <span th:text="${movie.Title}"></span>
-<!--                            <input th:hidden="hidden" type="text" th:field="*{movie.imdbID}" th:value="${movie.imdbID}"/>-->
                         </td>
                         <td th:text="${movie.Year}"></td>
                         <td th:text="${movie.imdbRating}"></td>
+                        <td th:text="${movie.userName}"></td>
                         <td  th:text="${movie.userRating}"></td>
                     </tr>
                 </table>
