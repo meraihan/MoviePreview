@@ -19,7 +19,7 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn active">MOVIES</a>
             <div class="dropdown-content">
-                <a href="/movie/ratings" sec:authorize-expr="hasAuthority('ADMIN')">RATINGS</a>
+                <a href="/movie/ratings">RATINGS</a>
                 <a href="/movie/search">SEARCH</a>
                 <a href="/movie/myfav">FAVOURITE</a>
             </div>
@@ -60,6 +60,7 @@
                         <th>Rating</th>
                         <th>User rating</th>
                         <th>Favourite</th>
+                        <th>Action</th>
                     </tr>
                     <tr th:each="movie,iterationStatus : ${movies}" style="color: #cccccc">
                         <td th:text="${iterationStatus.count}">1</td>
@@ -69,9 +70,16 @@
                         </td>
                         <td th:text="${movie.Year}"></td>
                         <td th:text="${movie.imdbRating}"></td>
-                        <td  th:text="${movie.userRating}"></td>
-                        <td><div th:if="${movie.isFavourite} == true">YES</div>
-                        <div th:if="${movie.isFavourite} == false">NO</div></td>
+                        <td th:text="${movie.userRating}"></td>
+                        <td>
+                            <select th:if="${movie.isFavourite}">
+                                <option value="true">YES</option>
+                                <option value="false">NO</option>
+                            </select>
+                        </td>
+                        <td> <a th:href="@{/movie/remove-fav(imdb=${movie.imdbID})}">Delete</a> </td>
+<!--                        <td><div th:if="${movie.isFavourite} == true">YES</div>-->
+<!--                        <div th:if="${movie.isFavourite} == false">NO</div></td>-->
                     </tr>
                 </table>
 

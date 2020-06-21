@@ -120,4 +120,9 @@ public class MovieService {
         });
         return movies;
     }
+
+    public boolean updateFavourite(String imdbId) {
+
+        return ratingRepository.updateFav(imdbId);
+    }
 }

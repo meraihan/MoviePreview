@@ -60,4 +60,14 @@ public class MovieController {
         model.addAttribute("movies", movies);
         return "movie/favourite";
     }
+
+    @GetMapping("/remove-fav")
+    public String findIssueForAutoComplete(@RequestParam("imdb") String imdbId) {
+        if (movieService.updateFavourite(imdbId)) {
+            return "redirect:myfav";
+        }
+        return "redirect:/";
+    }
+
+
 }

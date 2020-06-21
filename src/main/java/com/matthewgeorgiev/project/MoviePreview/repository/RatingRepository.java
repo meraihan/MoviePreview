@@ -100,6 +100,17 @@ public class RatingRepository {
         return false;
     }
 
+    public boolean updateFav(String imdbId) {
+        boolean isFav = false;
+        String query = "Update ratings set is_favourite = ? where imdb_id = ?";
+        try {
+            return jdbcTemplate.update(query, new Object[] {isFav, imdbId}) == 1;
+        } catch (DataAccessException dae) {
+            log.error(dae.getLocalizedMessage());
+        }
+        return false;
+    }
+
     public List<Rating> findByUserId(int userId) {
         String query = "Select * from ratings where user_id = ? and is_favourite=true order by id desc";
         try{
