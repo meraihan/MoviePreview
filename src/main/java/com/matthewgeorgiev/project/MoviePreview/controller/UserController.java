@@ -2,6 +2,7 @@ package com.matthewgeorgiev.project.MoviePreview.controller;
 
 import com.matthewgeorgiev.project.MoviePreview.model.User;
 import com.matthewgeorgiev.project.MoviePreview.service.UserService;
+import com.matthewgeorgiev.project.MoviePreview.utils.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,6 +56,9 @@ public class UserController {
         user = userService.addUser(user);
         if (user != null) {
             redirectAttributes.addFlashAttribute("success", "Please log in");
+            if(Helper.findLoggedInUserRole().equals("ADMIN")){
+                return "redirect:/user/list";
+            }
             return "redirect:/";
         } else {
             return "redirect:/user/register";

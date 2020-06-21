@@ -1,5 +1,7 @@
 package com.matthewgeorgiev.project.MoviePreview.utils;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -16,5 +18,11 @@ public class Helper {
     public static Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
     public static LocalDateTime timeStampToLocalDateTime(Timestamp timestamp) {
         return LocalDateTime.ofInstant(timestamp.toInstant(), defaultZoneId);
+    }
+
+    public static String findLoggedInUserRole(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String role = authentication.getAuthorities().toString();
+        return role.substring(1, role.length()-1);
     }
 }

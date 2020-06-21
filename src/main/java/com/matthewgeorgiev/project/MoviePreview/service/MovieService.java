@@ -115,6 +115,7 @@ public class MovieService {
             Movie movie = responseEntity.getBody();
             movie.setUserName(user.getName());
             movie.setIsFavourite(rating.getIsFavourite());
+            movie.setUserRating(rating.getRating());
             movies.add(movie);
         });
         return movies;
