@@ -1,0 +1,111 @@
+.content {
+    position: absolute;
+    color: #cccccc;
+    width: 910px;
+    height: 200px;
+    top: 30%;
+    left: 35%;
+    margin-top: -100px;
+    margin-left: -250px;
+}
+.text-content{
+    font-family: Arial;
+    font-size: 25px;
+}
+.text-dashboard{
+    color: hsl(73, 46%, 55%);
+    font-size: 30px;
+}
+table, th{
+    border: 1px solid #fbfff8;
+    border-collapse: collapse;
+    /*background-color: #010921;*/
+}
+th {
+    padding: 5px;
+    text-align: left;
+}
+td{
+    border: 1px solid #fbfff8;
+    text-align: center;
+}
+
+#cls{
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 72%;
+    background: #f1f1f1;
+}
+#btn{
+    float: left;
+    width: 25%;
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+#search-tbl{
+    width: 100%;
+}
+#search-tbl thead th{
+    text-align: center;
+}
+a {
+    color: #3dcc23;
+}
+
+#add-form{
+    padding: 50px;
+    border: 3px solid #f1f1f1;
+}
+
+#add-form input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.registerbtn{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: -29px 0 4px 0;
+}
+
+img.avatar {
+    width: 16%;
+    border-radius: 20%
+}
+/*button:hover {*/
+/*    opacity: 0.8;*/
+/*}*/
+#role{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+input[type="file"]{
+    color: #cccccc
+}
+.reg-header{
+    text-align: center;
+}

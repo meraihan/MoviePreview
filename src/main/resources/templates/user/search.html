@@ -1,63 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta name="description" content=""/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Movie Review</title>
-    <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
-
+    <title>Movie Review</title>
+    <link rel="stylesheet" th:href="@{/css/menu.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/footer.css}"/>
 </head>
-<body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
-<nav>
-    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a href="/dashboard">DASHBOARD</a></li>
-        <li><a class="active" href="/user/list">USERS</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">MOVIES</a>
-            <div class="dropdown-content">
-                <a href="/movie/ratings">RATINGS</a>
-                <a href="/movie/search">SEARCH</a>
-                <a href="/movie/myfav">FAVOURITE</a>
-            </div>
-        </li>
-        <li class="right"><a href="/about-us">ABOUT</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">MORE</a>
-            <div class="dropdown-content">
-                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND USER</a>
-                <a href="/about-us">ABOUT</a>
-                <a th:href="@{/logout}">LOGOUT</a>
-            </div>
-        </li>
-    </ul>
+<body>
+<ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
+    <li><a href="/dashboard">DASHBOARD</a></li>
+    <li class="dropdown">
+        <a href="#">USERS</a>
+        <div class="dropdown-content">
+            <a href="/user/list">LIST</a>
+            <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND</a>
+            <a href="/user/register">REGISTER</a>
+        </div>
+    </li>
+    <li class="dropdown">
+        <a class="active" href="#">MOVIES</a>
+        <div class="dropdown-content">
+            <a href="/movie/ratings">RATINGS</a>
+            <a href="/movie/search">SEARCH</a>
+            <a href="/movie/myfav">FAVOURITE</a>
+        </div>
+    </li>
+    <li class="dropdown">
+        <a href="#">MORE</a>
+        <div class="dropdown-content">
+            <a href="/about-us">ABOUT</a>
+            <a th:href="@{/logout}">LOGOUT</a>
+        </div>
+    </li>
+</ul>
 </nav>
 
 <div class="content">
-    <link rel="stylesheet" href="/css/form/style.css">
-    <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
-        <ul class="cd-faq__categories">
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
-            <li><a class="cd-faq__category truncate" href="/about-us">About</a></li>
-            <li><a class="cd-faq__category truncate" th:href="@{/logout}">Logout</a></li>
-        </ul>
-
-        <div class="cd-faq__items">
-
-            <ul id="delivery" class="cd-faq__group">
-                <li class="cd-faq__title"><h2>Search By Username</h2></li>
-                <form th:action="@{/user/find}" th:method="POST" modelAttribute="username">
-                    <input type="text" name="username" id="cls" placeholder="Search by User Name"/>
-                    <input type="submit" id="btn" text="SUBMIT"/>
-                </form>
-
-            </ul>
-        </div>
-    </section>
+    <h2>Search By Username</h2>
+    <form th:action="@{/user/find}" th:method="POST" modelAttribute="username">
+        <input type="text" name="username" id="cls" placeholder="Search by User Name"/>
+        <input type="submit" id="btn" text="SUBMIT"/>
+    </form>
 </div>
 
 <footer class="foot">
@@ -66,7 +51,7 @@
                     | Logged user: <span sec:authentication="name"></span> |
                     Roles: <span sec:authentication="principal.authorities"></span> |
                     <a th:href="@{/logout}" role="menuitem">Sign Out</a>
-                </span>
+     </span>
 </footer>
 </body>
 </html>

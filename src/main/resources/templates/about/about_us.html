@@ -1,48 +1,53 @@
 <!DOCTYPE html>
 <html  lang="en" xmlns="http://www.w3.org/1999/xhtml"
        xmlns:th="http://www.thymeleaf.org"
-       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
-    <link rel="stylesheet" th:href="@{/css/form/style.css}"/>
+    <title>Movie Review</title>
+    <link rel="stylesheet" th:href="@{/css/menu.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" th:href="@{/css/about.css}"/>
 </head>
 <body>
-<nav>
     <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
         <li><a href="/dashboard">DASHBOARD</a></li>
-        <li><a href="/user/list">USERS</a></li>
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">MOVIES</a>
+            <a href="#">USERS</a>
+            <div class="dropdown-content">
+                <a href="/user/list">LIST</a>
+                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND</a>
+                <a href="/user/register">REGISTER</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a class="active" href="#">MOVIES</a>
             <div class="dropdown-content">
                 <a href="/movie/ratings">RATINGS</a>
                 <a href="/movie/search">SEARCH</a>
                 <a href="/movie/myfav">FAVOURITE</a>
             </div>
         </li>
-        <li class="right"><a class="active" href="/about-us">ABOUT</a></li>
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">MORE</a>
+            <a href="#">MORE</a>
             <div class="dropdown-content">
-                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND USER</a>
-                <a class="active" href="/about-us">ABOUT</a>
-                <a href="#" id="logout">LOGOUT</a>
+                <a href="/about-us">ABOUT</a>
+                <a th:href="@{/logout}">LOGOUT</a>
             </div>
         </li>
     </ul>
 
 </nav>
 <div class="about-section">
-    <h1 style="color: #cccccc">About Us</h1><br>
-    <h3 style="color: #cccccc">Matthew Georgiev & Andrew Stoyanov</h3><br>
-    <img src="/css/img/univ.png" width="215px">
+    <h1>About Us</h1><br>
+    <h3>Matthew Georgiev & Andrew Stoyanov</h3><br>
+    <img src="/img/univ.png" width="215px">
 </div>
 
 <div class="row">
     <div class="column">
         <div class="card">
-            <img src="/css/img/Metthew.jpg" alt="Jane" style="width:100%">
+            <img src="/img/Metthew.jpg" alt="Jane" style="width:100%">
             <div class="container" style="color: #cccccc">
                 <h3 style="color: #cccccc; font-size: 25px">Matthew Georgiev </h3>
                 <p class="title">Student Number 474371</p>
@@ -55,7 +60,7 @@
 
     <div class="column">
         <div class="card1">
-            <img src="/css/img/Andrew.jpg" alt="Mike" style="width:100%">
+            <img src="/img/Andrew.jpg" alt="Mike" style="width:100%">
             <div class="container" style="color: #cccccc">
                 <h3 style="color: #cccccc;font-size: 25px">Andrew Stoyanov</h3>
                 <p class="title">Student Number 287228</p>
@@ -74,80 +79,8 @@
     <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
                 Roles: <span sec:authentication="principal.authorities"></span> |
-                <a href="javascript: document.footerLogout.submit()" role="menuitem">Sign Out</a>
-                <form name="footerLogout" th:action="@{/logout}" method="POST" th:hidden="true">
-                     <input th:hidden="true" type="submit" value="Logout"/>
-                </form>
+                <a href="/logout" role="menuitem">Sign Out</a>
             </span>
 </footer>
-<form id="logoutForm" hidden="hidden" method="post" th:action="@{/logout}">
 </body>
-<style>
-    body {
-        background:#333 url(/css/img/bg.jpg) repeat top left;
-    }
-    .column {
-        float: left;
-        width: 45%;
-        margin-top: -270px;
-        padding: 0 8px;
-    }
-
-    .card {
-        box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
-        margin: 100px;
-        margin-left: 50px;
-        margin-top: 155px;
-        width: 450px;
-    }
-    .card1 {
-        box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
-        margin: 100px;
-        margin-left: 250px;
-        margin-top: 145px;
-        width: 450px;
-    }
-    element.style {
-        width: 100%;
-    }
-    .about-section {
-        padding: 50px;
-        text-align: center;
-        /*background-color: #474e5d;*/
-        color: white;
-    }
-
-    .container {
-        padding: 0 16px;
-    }
-
-    .container::after, .row::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-
-    .title {
-        color: grey;
-    }
-
-    @media screen and (max-width: 650px) {
-        .column {
-            width: 100%;
-            display: block;
-        }
-    }
-</style>
-<script>
-    window.onload = function() {
-        var logoutBtn = document.getElementById('logout');
-        logoutBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            var form = document.getElementById('logoutForm');
-            console.log('Logging out');
-            form.submit();
-        }, false);
-    };
-
-</script>
 </html>

@@ -1,0 +1,10 @@
+.foot {
+    position: fixed;
+    font-family: Arial;
+    font-size: 15px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #cccccc;
+    text-align: center;
+}

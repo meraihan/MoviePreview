@@ -1,9 +1,7 @@
 package com.matthewgeorgiev.project.MoviePreview.repository;
 
-import com.matthewgeorgiev.project.MoviePreview.model.Rating;
 import com.matthewgeorgiev.project.MoviePreview.model.User;
 import com.matthewgeorgiev.project.MoviePreview.model.rowmapper.UserRowMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,13 +12,14 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
-@Slf4j
 @Repository
 public class UserRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private static final Logger log = Logger.getLogger(String.valueOf(UserRepository.class));
 
     public User findByUsername(String username) {
         User user;
@@ -30,9 +29,9 @@ public class UserRepository {
             user = jdbcTemplate.queryForObject(query, new Object[] {username}, new UserRowMapper());
             return user;
         } catch (DataAccessException dae) {
-            log.error("An exception occurred when executing the following query:");
-            log.error(query.replace("?", username));
-            log.error(dae.getLocalizedMessage());
+            log.info("An exception occurred when executing the following query:");
+            log.info(query.replace("?", username));
+            log.info(dae.getLocalizedMessage());
         }
         return null;
     }
@@ -45,7 +44,7 @@ public class UserRepository {
             user = jdbcTemplate.queryForObject(query, new Object[] {id}, new UserRowMapper());
             return user;
         } catch (DataAccessException dae) { ;
-            log.error(dae.getLocalizedMessage());
+            log.info(dae.getLocalizedMessage());
         }
         return null;
     }
@@ -58,9 +57,9 @@ public class UserRepository {
             users = jdbcTemplate.query(query, new UserRowMapper());
             return users;
         } catch (DataAccessException dae) {
-            log.error("An exception occurred when executing the following query:");
-            log.error(query);
-            log.error(dae.getLocalizedMessage());
+            log.info("An exception occurred when executing the following query:");
+            log.info(query);
+            log.info(dae.getLocalizedMessage());
         }
         return null;
     }
@@ -79,7 +78,7 @@ public class UserRepository {
         parameters.put("last_login_at", user.getLastLoginAt());
         Number id = simpleJdbcInsert.executeAndReturnKey(parameters);
         if (id == null) {
-            log.error("Failed to insert {}", user);
+            log.info("Failed to insert {}"+ user);
             return null;
         }
         user.setId(id.intValue());
@@ -87,11 +86,11 @@ public class UserRepository {
     }
 
     public boolean delete(Integer userId) {
-        log.info("deleting user of id: {} ", userId);
+        log.info("deleting user of id: {} "+ userId);
         try {
             return jdbcTemplate.update("DELETE FROM users WHERE id = ?", userId) == 1;
         } catch (DataAccessException dae) {
-            log.error("error : {} deleting user id: {} " , dae.getLocalizedMessage(), userId);
+            log.info("error: " + userId+  "deleting user id:" + dae.getLocalizedMessage());
         }
         return false;
     }
@@ -101,7 +100,7 @@ public class UserRepository {
         try {
             return jdbcTemplate.update(query, new Object[] {time, userId}) == 1;
         } catch (DataAccessException dae) {
-            log.error(dae.getLocalizedMessage());
+            log.info(dae.getLocalizedMessage());
         }
         return false;
     }

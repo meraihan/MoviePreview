@@ -1,83 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta name="description" content=""/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Movie Review</title>
-    <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
+    <title>Movie Review</title>
+    <link rel="stylesheet" th:href="@{/css/menu.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/footer.css}"/>
 
 </head>
-<body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
-<nav>
-    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a href="/dashboard">DASHBOARD</a></li>
-        <li><a class="active" href="/user/list">USERS</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">MOVIES</a>
-            <div class="dropdown-content">
-                <a href="/movie/ratings">RATINGS</a>
-                <a href="/movie/search">SEARCH</a>
-                <a href="/movie/myfav">FAVOURITE</a>
-            </div>
-        </li>
-        <li class="right"><a href="/about-us">ABOUT</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">MORE</a>
-            <div class="dropdown-content">
-                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND USER</a>
-                <a href="/about-us">ABOUT</a>
-                <a th:href="@{/logout}">LOGOUT</a>
-            </div>
-        </li>
-    </ul>
-</nav>
+<body>
+<ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
+    <li><a href="/dashboard">DASHBOARD</a></li>
+    <li class="dropdown">
+        <a href="#">USERS</a>
+        <div class="dropdown-content">
+            <a href="/user/list">LIST</a>
+            <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND</a>
+            <a href="/user/register">REGISTER</a>
+        </div>
+    </li>
+    <li class="dropdown">
+        <a class="active" href="#">MOVIES</a>
+        <div class="dropdown-content">
+            <a href="/movie/ratings">RATINGS</a>
+            <a href="/movie/search">SEARCH</a>
+            <a href="/movie/myfav">FAVOURITE</a>
+        </div>
+    </li>
+    <li class="dropdown">
+        <a href="#">MORE</a>
+        <div class="dropdown-content">
+            <a href="/about-us">ABOUT</a>
+            <a th:href="@{/logout}">LOGOUT</a>
+        </div>
+    </li>
+</ul>
 
 <div class="content">
-    <link rel="stylesheet" href="/css/form/style.css">
-    <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
-        <ul class="cd-faq__categories">
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
-            <li><a class="cd-faq__category truncate" href="/about-us">About</a></li>
-            <li><a class="cd-faq__category truncate" th:href="@{/logout}">Logout</a></li>
-        </ul>
+    <h3>List of All Registered User</h3><br>
+    <table width="100%">
+        <tr>
+            <th>Serial</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Last Login</th>
+            <th>Action</th>
 
-        <div class="cd-faq__items">
+        </tr>
+        <tr th:each="user,iterationStatus : ${users}">
+            <td th:text="${iterationStatus.count}">1</td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${#temporals.format(user.lastLoginAt, 'dd-MM-yyyy HH:mm')}"></td>
+            <td>&nbsp;&nbsp;&nbsp;
+                <a th:href="@{/user/delete(id=${user.id})}">
+                    <i>&#9986;</i></a>
+            </td>
 
-            <ul id="delivery" class="cd-faq__group">
-                <li style="text-align: center;"><h3 style="color: #cccccc;">List of All Registered User</h3></li><br>
-                <span th:if="${user != null}" th:text="Successfully addded user ${user.name}"></span>
-                <table>
-                    <tr>
-                        <th>Serial</th>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Last Login</th>
-                        <th>Action</th>
+        </tr>
+    </table>
 
-                    </tr>
-                    <tr th:each="user,iterationStatus : ${users}" style="color: #cccccc">
-                        <td th:text="${iterationStatus.count}">1</td>
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.name}"></td>
-                        <td th:text="${user.role}"></td>
-                        <td th:text="${#temporals.format(user.lastLoginAt, 'dd-MM-yyyy HH:mm')}"></td>
-                        <td>&nbsp;&nbsp;&nbsp;
-                            <a th:href="@{/user/delete(id=${user.id})}" onclick="return confirmation()">
-                                <i style='font-size:30px;color: #160791'>&#9986;</i></a>
-                        </td>
 
-                    </tr>
-                </table>
-
-            </ul>
-        </div>
-    </section>
 </div>
 
 <footer class="foot">
@@ -88,32 +74,5 @@
                     <a th:href="@{/logout}" role="menuitem">Sign Out</a>
                 </span>
 </footer>
-
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        background: hsl(210, 14%, 49%);
-    }
-
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even){background-color: hsl(210, 14%, 49%);}
-
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-</style>
-
-<script th:inline="javascript">
-    function confirmation() {
-        return confirm('Are you sure you want to delete this user?');
-    }
-
-</script>
 </body>
 </html>

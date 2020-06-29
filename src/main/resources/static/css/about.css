@@ -1,0 +1,51 @@
+.column {
+    float: left;
+    width: 45%;
+    margin-top: -270px;
+    padding: 0 8px;
+}
+
+.card {
+    box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
+    margin: 100px;
+    margin-left: 50px;
+    margin-top: 155px;
+    width: 450px;
+}
+.card1 {
+    box-shadow: 0 4px 30px 0 rgba(0, 0, 0, 1);
+    margin: 100px;
+    margin-left: 250px;
+    margin-top: 145px;
+    width: 450px;
+}
+element.style {
+    width: 100%;
+}
+.about-section {
+    padding: 50px;
+    text-align: center;
+    /*background-color: #474e5d;*/
+    color: white;
+}
+
+.container {
+    padding: 0 16px;
+}
+
+.container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.title {
+    color: grey;
+}
+
+@media screen and (max-width: 650px) {
+    .column {
+        width: 100%;
+        display: block;
+    }
+}

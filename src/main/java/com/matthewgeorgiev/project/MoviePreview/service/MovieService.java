@@ -6,7 +6,6 @@ import com.matthewgeorgiev.project.MoviePreview.model.SearchResults;
 import com.matthewgeorgiev.project.MoviePreview.model.User;
 import com.matthewgeorgiev.project.MoviePreview.repository.RatingRepository;
 import com.matthewgeorgiev.project.MoviePreview.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -20,9 +19,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
-@Slf4j
 public class MovieService {
     @Value("${remote.api.url}")
     private String url;
@@ -34,6 +33,7 @@ public class MovieService {
     private UserRepository userRepository;
     @Autowired
     private RatingRepository ratingRepository;
+    private static final Logger log = Logger.getLogger(String.valueOf(MovieService.class));
 
     public List<Movie> findByTitle(String title) {
         RestTemplate restTemplate = restTemplateBuilder.build();
@@ -42,7 +42,7 @@ public class MovieService {
         HttpEntity entity = new HttpEntity(headers);
         String url = this.url + "&s=" + title.trim();
         ResponseEntity<SearchResults> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, SearchResults.class);
-        log.info("Status: {}", responseEntity.getStatusCode());
+        log.info("Status: "+ responseEntity.getStatusCode());
         SearchResults results = responseEntity.getBody();
         List<Movie> movies = results.getSearch();
         return movies;
@@ -54,12 +54,15 @@ public class MovieService {
         HttpEntity entity = new HttpEntity(headers);
         String url = this.url + "&i=" + id.trim();
         ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
-        log.info("Status: {}", responseEntity.getStatusCode());
+        log.info("Status: "+ responseEntity.getStatusCode());
         Movie movie = responseEntity.getBody();
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Rating rating = ratingRepository.findRatingByUserIdAndImdbId(user.getId(), movie.getImdbID());
-        if (rating != null) {
+        if (rating.getId()!=null) {
             movie.setUserRating(rating.getRating());
+            movie.setFavourite(rating.getFavourite());
+        } else {
+            movie.setFavourite(Boolean.TRUE);
         }
         return movie;
     }
@@ -73,7 +76,7 @@ public class MovieService {
             HttpEntity entity = new HttpEntity(headers);
             String url = this.url + "&i=" + rating.getImdbID().trim();
             ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
-            log.info("Status: {}", responseEntity.getStatusCode());
+            log.info("Status: "+ responseEntity.getStatusCode());
             Movie movie = responseEntity.getBody();
             User user = userRepository.findByUserId(rating.getUser().getId());
             movie.setUserName(user.getName());
@@ -90,12 +93,12 @@ public class MovieService {
             rating.setImdbID(movie.getImdbID());
             rating.setRating(movie.getUserRating());
             rating.setUser(user);
-            rating.setIsFavourite(movie.getIsFavourite());
+            rating.setFavourite(movie.getFavourite());
             rating = ratingRepository.addRating(rating);
         } else {
             rating.setRating(movie.getUserRating());
             boolean success = ratingRepository.updateRating(rating);
-            log.info("Updated Rating status: {}", success);
+            log.info("Updated Rating status: "+ success);
         }
         return rating;
     }
@@ -111,10 +114,10 @@ public class MovieService {
             HttpEntity entity = new HttpEntity(headers);
             String url = this.url + "&i=" + rating.getImdbID().trim();
             ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
-            log.info("Status: {}", responseEntity.getStatusCode());
+            log.info("Status: "+ responseEntity.getStatusCode());
             Movie movie = responseEntity.getBody();
             movie.setUserName(user.getName());
-            movie.setIsFavourite(rating.getIsFavourite());
+            movie.setFavourite(rating.getFavourite());
             movie.setUserRating(rating.getRating());
             movies.add(movie);
         });

@@ -1,87 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta name="description" content=""/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Movie Review</title>
-    <link rel="stylesheet" th:href="@{/css/main/main.css}"/>
+    <title>Movie Review</title>
+    <link rel="stylesheet" th:href="@{/css/menu.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/footer.css}"/>
 
 </head>
-<body style="background:#333 url(/css/img/bg.jpg) repeat top left;">
+<body>
 
-<nav>
-    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a href="/dashboard">DASHBOARD</a></li>
-        <li><a href="/user/list">USERS</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn active">MOVIES</a>
-            <div class="dropdown-content">
-                <a href="/movie/ratings">RATINGS</a>
-                <a href="/movie/search">SEARCH</a>
-                <a href="/movie/myfav">FAVOURITE</a>
-            </div>
-        </li>
-        <li class="right"><a href="/about-us">ABOUT</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">MORE</a>
-            <div class="dropdown-content">
-                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND USER</a>
-                <a href="/about-us">ABOUT</a>
-                <a th:href="@{/logout}">LOGOUT</a>
-            </div>
-        </li>
-    </ul>
-</nav>
+<ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
+    <li><a href="/dashboard">DASHBOARD</a></li>
+    <li class="dropdown">
+        <a href="#">USERS</a>
+        <div class="dropdown-content">
+            <a href="/user/list">LIST</a>
+            <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND</a>
+            <a href="/user/register">REGISTER</a>
+        </div>
+    </li>
+    <li class="dropdown">
+        <a class="active" href="#">MOVIES</a>
+        <div class="dropdown-content">
+            <a href="/movie/ratings">RATINGS</a>
+            <a href="/movie/search">SEARCH</a>
+            <a href="/movie/myfav">FAVOURITE</a>
+        </div>
+    </li>
+    <li class="dropdown">
+        <a href="#">MORE</a>
+        <div class="dropdown-content">
+            <a href="/about-us">ABOUT</a>
+            <a th:href="@{/logout}">LOGOUT</a>
+        </div>
+    </li>
+</ul>
 
 <div class="content">
-    <link rel="stylesheet" href="/css/form/style.css">
-    <section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
-        <ul class="cd-faq__categories">
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/find">Find User</a></li>
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/list">User List</a></li>
-            <li sec:authorize-expr="hasAuthority('ADMIN')"><a class="cd-faq__category truncate" href="/user/register">Register</a></li>
-            <li><a class="cd-faq__category truncate" href="/about-us">About</a></li>
-            <li><a class="cd-faq__category truncate" th:href="@{/logout}">Logout</a></li>
-        </ul>
 
-        <div class="cd-faq__items">
-
-            <ul id="delivery" class="cd-faq__group">
-                <li class="cd-faq__title"><h2>Search By Movie Title</h2></li>
-                <form th:action="@{/movie/search}" th:method="POST" modelAttribute="title">
-                    <input type="text" name="title" id="cls" placeholder="Search By Movie Title"/>
-                    <input type="submit" id="btn" value="SEARCH"/>
-                </form>
-                <br><br><br>
-                <table th:if="${not #lists.isEmpty(movies) }">
-                    <thead>
-                    <tr>
-                        <th>Serial</th>
-                        <th>Title</th>
-                        <th>Year</th>
-                        <th>Rating</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr  th:each="movie,iterationStatus : ${movies}" style="background: #cccccc">
-                        <td th:text="${iterationStatus.count}">1</td>
-                        <td><a th:href="@{'/movie/rate/' + ${movie.imdbID}}" th:text="${movie.Title}"></a></td>
-                        <td th:text="${movie.Year}"></td>
-                        <td th:text="${movie.imdbRating}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </ul>
-        </div>
-
-        <a href="#0" class="cd-faq__close-panel text-replace">Close</a>
-
-        <div class="cd-faq__overlay" aria-hidden="true"></div>
-    </section>
+    <h2>Search By Movie Title</h2>
+    <form th:action="@{/movie/search}" th:method="POST" modelAttribute="title">
+        <input type="text" name="title" id="cls" placeholder="Search By Movie Title"/>
+        <input type="submit" id="btn" value="SEARCH"/>
+    </form>
+    <br><br><br>
+    <table th:if="${not #lists.isEmpty(movies) }" id="search-tbl">
+        <thead>
+        <tr>
+            <th>Serial</th>
+            <th>Title</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="movie,iterationStatus : ${movies}">
+            <td th:text="${iterationStatus.count}">1</td>
+            <td><a th:href="@{'/movie/rate/' + ${movie.imdbID}}" th:text="${movie.Title}"></a></td>
+            <td th:text="${movie.year}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <footer class="foot">

@@ -2,94 +2,33 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            background:#333 url(css/img/bg.jpg) repeat top left;font-family:Arial;
-        }
-        form {
-            width: 500px;
-            height: 430px;
-            padding: 50px;
-            border: 3px solid #f1f1f1;
-            margin:auto;
-        }
-
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
-
-        img.avatar {
-            width: 30%;
-            border-radius: 20%
-        }
-
-        .container {
-            padding: 16px;
-        }
-
-        span.psw {
-            float: right;
-            padding-top: 16px;
-        }
-
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-            span.psw {
-                display: block;
-                float: none;
-            }
-        }
-    </style>
+    <title>Movie Review</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
 </head>
 <body>
 
-<h2 style="text-align: center; color: #cccccc;">Welcome to the Most Amazing Movie Library</h2>
+<h2>Welcome to the Most Amazing Movie Library</h2>
 <form th:action="@{/login}" method="post">
     <div class="imgcontainer">
-        <img th:src="@{/css/img/M_A movies_full_edited.png}" alt="Avatar" class="avatar">
+        <img th:src="@{/img/M_A movies_full_edited.png}" alt="Avatar" class="avatar"/>
     </div>
-    <div style="color: #cccccc; text-align: center">
+    <div class="message">
         <div th:if="${param.error}">Invalid username and password.</div>
         <div th:if="${param.logout}">You have been logged out.</div>
     </div>
 
     <div class="container">
-        <label for="uname" style="color: #cccccc"><b>Username</b></label>
+        <label for="uname"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" id="uname" value="admin" name="username" required/>
         </br>
-        <label for="psw" style="color: #cccccc"><b>Password</b></label>
+        <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" id="psw" value="aaaaa@" name="password" required/>
 
         <button type="submit">Login</button>
-        <span style="color: #cccccc">Not Registered?</span>
-        <a th:href="@{/user/register}" style="text-align: right; color: #4CAF50"; >
+        <p>Not Registered? <a th:href="@{/user/register}" >
             <span th:if="${not #authorization.expression('isAuthenticated()')}">Sign Up Now</span>
-        </a></br>
+        </a></br></p>
+
     </div>
 </form>
 
