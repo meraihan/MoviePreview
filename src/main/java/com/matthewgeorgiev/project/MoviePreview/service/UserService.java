@@ -40,7 +40,7 @@ public class UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        user.setPassword(Helper.bCryptEncoder.encode(user.getPassword()));
+        user.setPassword("123");
         user.setLastLoginAt(LocalDateTime.now());
         return userRepository.add(user);
     }

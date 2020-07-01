@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html  lang="en" xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Movie Review</title>
     <link rel="stylesheet" th:href="@{/css/menu.css}"/>
@@ -10,13 +9,13 @@
     <link rel="stylesheet" th:href="@{/css/about.css}"/>
 </head>
 <body>
-    <ul class="topnav" th:if="${#authorization.expression('isAuthenticated()')}">
-        <li><a href="/dashboard">DASHBOARD</a></li>
+    <ul class="topnav">
+        <li><a href="/">DASHBOARD</a></li>
         <li class="dropdown">
             <a href="#">USERS</a>
             <div class="dropdown-content">
                 <a href="/user/list">LIST</a>
-                <a href="/user/find" sec:authorize-expr="hasAuthority('ADMIN')">FIND</a>
+                <a href="/user/find">FIND</a>
                 <a href="/user/register">REGISTER</a>
             </div>
         </li>
@@ -31,7 +30,7 @@
         <li class="dropdown">
             <a href="#">MORE</a>
             <div class="dropdown-content">
-                <a href="/about-us">ABOUT</a>
+                <a href="/user/about-us">ABOUT</a>
                 <a th:href="@{/logout}">LOGOUT</a>
             </div>
         </li>
@@ -76,11 +75,7 @@
 </div>
 <footer class="foot">
     © 2020 Matthew Georgiev and Andrew Stoyanov
-    <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
-                Roles: <span sec:authentication="principal.authorities"></span> |
-                <a href="/logout" role="menuitem">Sign Out</a>
-            </span>
+    <span>| Logged user:  admin | Roles: Admin | <a th:href="@{/logout}" role="menuitem">Sign Out</a></span>
 </footer>
 </body>
 </html>

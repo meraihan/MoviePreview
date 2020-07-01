@@ -8,13 +8,13 @@ public class Movie {
     public String ImdbRating;
     public String userRating;
     public String Poster;
-    public Boolean isFavourite;
+    public Integer isFavourite;
     public String userName;
 
     public Movie() {
     }
 
-    public Movie(String imdbID, String title, String year, String imdbRating, String userRating, String poster, Boolean isFavourite, String userName) {
+    public Movie(String imdbID, String title, String year, String imdbRating, String userRating, String poster, Integer isFavourite, String userName) {
         this.imdbID = imdbID;
         Title = title;
         Year = year;
@@ -73,12 +73,12 @@ public class Movie {
         Poster = poster;
     }
 
-    public Boolean getFavourite() {
+    public Integer getIsFavourite() {
         return isFavourite;
     }
 
-    public void setFavourite(Boolean favourite) {
-        isFavourite = favourite;
+    public void setIsFavourite(Integer isFavourite) {
+        this.isFavourite = isFavourite;
     }
 
     public String getUserName() {

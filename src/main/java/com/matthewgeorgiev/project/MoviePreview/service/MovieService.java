@@ -13,7 +13,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -56,13 +55,13 @@ public class MovieService {
         ResponseEntity<Movie> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, Movie.class);
         log.info("Status: "+ responseEntity.getStatusCode());
         Movie movie = responseEntity.getBody();
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userRepository.findByUsername("admin");
         Rating rating = ratingRepository.findRatingByUserIdAndImdbId(user.getId(), movie.getImdbID());
         if (rating.getId()!=null) {
             movie.setUserRating(rating.getRating());
-            movie.setFavourite(rating.getFavourite());
+            movie.setIsFavourite(rating.getIsFavourite());
         } else {
-            movie.setFavourite(Boolean.TRUE);
+            movie.setIsFavourite(1);
         }
         return movie;
     }
@@ -87,13 +86,13 @@ public class MovieService {
     }
 
     public Rating saveMovieRating(Movie movie) {
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userRepository.findByUsername("admin");
         Rating rating = ratingRepository.findRatingByUserIdAndImdbId(user.getId(), movie.getImdbID());
         if (rating.getId() == null) {
             rating.setImdbID(movie.getImdbID());
             rating.setRating(movie.getUserRating());
             rating.setUser(user);
-            rating.setFavourite(movie.getFavourite());
+            rating.setIsFavourite(movie.getIsFavourite());
             rating = ratingRepository.addRating(rating);
         } else {
             rating.setRating(movie.getUserRating());
@@ -106,7 +105,7 @@ public class MovieService {
     public List<Movie> findMyFav() {
         List<Movie> movies = new ArrayList<>();
         List<Rating> ratings = new ArrayList<>();
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userRepository.findByUsername("admin");
         ratings = ratingRepository.findByUserId(user.getId());
         ratings.stream().forEach(rating -> {
             RestTemplate restTemplate = restTemplateBuilder.build();
@@ -117,7 +116,7 @@ public class MovieService {
             log.info("Status: "+ responseEntity.getStatusCode());
             Movie movie = responseEntity.getBody();
             movie.setUserName(user.getName());
-            movie.setFavourite(rating.getFavourite());
+            movie.setIsFavourite(rating.getIsFavourite());
             movie.setUserRating(rating.getRating());
             movies.add(movie);
         });

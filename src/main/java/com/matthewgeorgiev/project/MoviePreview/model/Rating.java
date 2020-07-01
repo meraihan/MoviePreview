@@ -6,12 +6,12 @@ public class Rating {
     public User user;
     public String imdbID;
     public String rating;
-    public Boolean isFavourite;
+    public Integer isFavourite;
 
     public Rating() {
     }
 
-    public Rating(Integer id, User user, String imdbID, String rating, Boolean isFavourite) {
+    public Rating(Integer id, User user, String imdbID, String rating, Integer isFavourite) {
         this.id = id;
         this.user = user;
         this.imdbID = imdbID;
@@ -51,12 +51,12 @@ public class Rating {
         this.rating = rating;
     }
 
-    public Boolean getFavourite() {
+    public Integer getIsFavourite() {
         return isFavourite;
     }
 
-    public void setFavourite(Boolean favourite) {
-        isFavourite = favourite;
+    public void setIsFavourite(Integer isFavourite) {
+        this.isFavourite = isFavourite;
     }
 
     @Override

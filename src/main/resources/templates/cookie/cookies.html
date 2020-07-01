@@ -3,13 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Movie Review</title>
-    <link rel="stylesheet" th:href="@{/css/menu.css}"/>
+    <link rel="stylesheet" th:href="@{/css/menu.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" th:href="@{/css/footer.css}"/>
 </head>
 <body>
+
 <ul class="topnav">
-    <li><a href="/">DASHBOARD</a></li>
+    <li><a class="active" href="/">DASHBOARD</a></li>
     <li class="dropdown">
         <a href="#">USERS</a>
         <div class="dropdown-content">
@@ -19,7 +20,7 @@
         </div>
     </li>
     <li class="dropdown">
-        <a class="active" href="#">MOVIES</a>
+        <a href="#">MOVIES</a>
         <div class="dropdown-content">
             <a href="/movie/ratings">RATINGS</a>
             <a href="/movie/search">SEARCH</a>
@@ -30,23 +31,25 @@
         <a href="#">MORE</a>
         <div class="dropdown-content">
             <a href="/user/about-us">ABOUT</a>
-            <a th:href="@{/logout}">LOGOUT</a>
+            <a href="/logout">LOGOUT</a>
         </div>
     </li>
 </ul>
-</nav>
+
 
 <div class="content">
-    <h2>Search By Username</h2>
-    <form th:action="@{/user/find}" th:method="POST" modelAttribute="username">
-        <input type="text" name="username" id="cls" placeholder="Search by User Name"/>
-        <input type="submit" id="btn" text="SUBMIT"/>
-    </form>
+<h2 th:text="${userName}"></h2>
+<p th:text="${cookies}"></p>
+
 </div>
 
 <footer class="foot">
     © 2020 Matthew Georgiev and Andrew Stoyanov
-    <span>| Logged user:  admin | Roles: Admin | <a th:href="@{/logout}" role="menuitem">Sign Out</a></span>
+    <span>
+                | Logged user:
+                <a th:href="@{/logout}" role="menuitem">Sign Out</a>
+            </span>
 </footer>
+
 </body>
 </html>

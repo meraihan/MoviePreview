@@ -8,7 +8,7 @@
 <body>
 
 <h2>Welcome to the Most Amazing Movie Library</h2>
-<form th:action="@{/login}" method="post">
+<form th:action="@{/login}" method="post" modelAttribute="user">
     <div class="imgcontainer">
         <img th:src="@{/img/M_A movies_full_edited.png}" alt="Avatar" class="avatar"/>
     </div>
@@ -26,7 +26,7 @@
 
         <button type="submit">Login</button>
         <p>Not Registered? <a th:href="@{/user/register}" >
-            <span th:if="${not #authorization.expression('isAuthenticated()')}">Sign Up Now</span>
+            <span>Sign Up Now</span>
         </a></br></p>
 
     </div>
