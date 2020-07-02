@@ -58,12 +58,13 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public String showRegistrationPage(Model model) {
+    public String showRegistrationPage(Model model, HttpSession session) {
         List<String> roles = new ArrayList<>();
         roles.add("USER");
         roles.add("ADMIN");
         model.addAttribute("roles", roles);
         model.addAttribute("user", new User());
+        model.addAttribute("sessions", session.getAttribute("user"));
         return "user/add";
     }
 
