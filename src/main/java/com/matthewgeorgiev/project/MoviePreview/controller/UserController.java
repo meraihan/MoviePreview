@@ -23,14 +23,6 @@ public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
 
-//    @GetMapping("")
-//    public String handleReq(HttpSession session) {
-//        if (!authenticationService.isLoggedIn(session)) {
-//            return "redirect:login";
-//        }
-//        return "redirect:/";
-//    }
-
     @GetMapping("/find")
     public String findUserPageDisplay(HttpSession session) {
         if(authenticationService.isLoggedIn(session)){
