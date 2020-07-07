@@ -45,10 +45,10 @@
             <input type="text" id="username" placeholder="username" th:field="*{username}" required/>
 
             <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" id="password" th:field="*{password}" required/>
+            <input type="password" placeholder="Enter Password"  onkeyup='check();' id="password" th:field="*{password}" required/>
 
             <label for="cpassword"><b>Confirm Password</b></label>
-            <input type="password" placeholder="Confirm Password" id="cpassword" th:field="*{confirmPassword}" required/>
+            <input type="password" placeholder="Confirm Password"  onkeyup='check();' id="cpassword" th:field="*{confirmPassword}" required/>
             <span id='message'></span>
             <div>
                 <label for="role">Roles</label>
@@ -77,5 +77,22 @@
     © 2020 Matthew Georgiev and Andrew Stoyanov
     <span>| Logged user:  admin | Roles: Admin | <a th:href="@{/logout}" role="menuitem">Sign Out</a></span>
 </footer>
+
+<script>
+    var check = function() {
+        if(document.getElementById('password').value=='' || document.getElementById('cpassword').value==''){
+            document.getElementById('message').hide();
+        }
+        if (document.getElementById('password').value ==
+            document.getElementById('cpassword').value) {
+            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').innerHTML = 'matching';
+        } else {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerHTML = 'not matching';
+        }
+    }
+
+</script>
 </body>
 </html>
