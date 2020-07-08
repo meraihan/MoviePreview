@@ -7,7 +7,7 @@ create table users
    password varchar(255) not null,
    role varchar(255) not null,
    img_loc varchar(255) not null,
-   last_login_at timestamp default CURRENT_TIMESTAMP(),
+   last_login_at timestamp default CURRENT_TIMESTAMP,
    primary key(id)
 );
 drop table if exists ratings;
