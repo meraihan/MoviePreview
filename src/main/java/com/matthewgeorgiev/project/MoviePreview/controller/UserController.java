@@ -57,6 +57,7 @@ public class UserController {
         model.addAttribute("roles", roles);
         model.addAttribute("user", new User());
         model.addAttribute("sessions", session.getAttribute("user"));
+        model.addAttribute("userRole", session.getAttribute("role"));
         return "user/add";
     }
 

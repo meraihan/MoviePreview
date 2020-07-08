@@ -41,7 +41,9 @@ public class LoginController {
     @PostMapping("/login")
     public String postLogin(@ModelAttribute("user") User user, Model model, HttpSession session,  HttpServletResponse response) {
         if (user != null && authenticationService.loadUserByUsername(user.getUsername(), user.getPassword())) {
+            User findRole = userService.getUser(user.getUsername());
             session.setAttribute("user", user);
+            session.setAttribute("role", findRole.getRole());
             Cookie cookie = new Cookie("username", user.getUsername());
             cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
             response.addCookie(cookie);
